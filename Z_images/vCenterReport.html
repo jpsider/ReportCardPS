@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <!-- CLARITY CSS-->
-		<link rel="stylesheet" href="https://unpkg.com/@clr/ui/clr-ui-dark.min.css" title="dark" type="text/css" />
-		<link rel="alternate stylesheet" href="https://unpkg.com/@clr/ui/clr-ui.min.css" title="light" type="text/css"/>
+        <link rel="stylesheet" href="https://unpkg.com/@clr/ui/clr-ui-dark.min.css" title="dark" type="text/css" />
+        <link rel="alternate stylesheet" href="https://unpkg.com/@clr/ui/clr-ui.min.css" title="light" type="text/css"/>
         <link rel="stylesheet" href="https://unpkg.com/clarity-icons/clarity-icons.min.css">
         <!-- Datatables JS-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -88,7 +88,7 @@
 	    	<header class="header header-6">
                 <div class="branding">
                     <a href="index.php" class="nav-link">
-	    		        <span class="title">ReportCardPS</span>
+	    		        <span class="title">ReportCardPS vCenter: 192.168.2.220</span>
                     </a>
                 </div>
                 <div class="header-nav">
@@ -114,14 +114,14 @@
                     <div class="card-block">
                         <h3 class="card-title"><clr-icon shape="cpu" size="24"></clr-icon>&nbsp CPU</h3>
                         <center><p class="card-text">
-                            <h2>264.29 GHz free</h2>
+                            <h2>4.4 GHz free</h2>
                         </p>
                         <div class="progress-block">
                             <div class="progress success">
-                                <progress value="29" max="100" data-displayval="29%"></progress>
+                                <progress value="29" max="100" data-displayval="4%"></progress>
                             </div>
                         </div>
-                            108.6 GHz used | 372.9 GHz total
+                            206 MHz used | 4.606 GHz total
                         </center>
                     </div>
                 </div>
@@ -129,14 +129,14 @@
 					<div class="card-block">
                         <h3 class="card-title"><clr-icon shape="memory" size="24"></clr-icon>&nbsp Memory</h3>
                         <center><p class="card-text">
-                            <h2>1.33 TB free</h2>
+                            <h2>16.17 GB free</h2>
                         </p>
                         <div class="progress-block">
                             <div class="progress success">
-                                <progress value="62" max="100" data-displayval="29%"></progress>
+                                <progress value="62" max="100" data-displayval="15.72%"></progress>
                             </div>
                         </div>
-                            2.26 TB used | 3.59 TB total
+                            49.00 GB used | 31.89 GB total
                         </center>
                     </div>
 				</div>
@@ -144,21 +144,21 @@
 					<div class="card-block">
                         <h3 class="card-title"><clr-icon shape="storage" size="24"></clr-icon>&nbsp Storage</h3>
                         <center><p class="card-text">
-                            <h2>68.44 TB free</h2>
+                            <h2>2580.97 GB free</h2>
                         </p>
                         <div class="progress-block">
                             <div class="progress success">
-                                <progress value="52" max="100" data-displayval="29%"></progress>
+                                <progress value="52" max="100" data-displayval="4.00%"></progress>
                             </div>
                         </div>
-                            73.51 TB used | 141.95 TB total
+                            97.34 GB used | 2678.31 GB total
                         </center>
                     </div>
                 </div>
             </div>
 		</div> <!-- End of Row -->
 		<div class="clr-row">
-			<div class="card-columns">
+			<div class="card-columns card-columns-2">
                 <div class="card">
                     <div class="card-block">
                         <h3 class="card-title"><clr-icon shape="vm" size="24"></clr-icon>&nbsp VMs</h3>
@@ -166,8 +166,8 @@
                         <center>
                             <table>
                             <tr>
-                            <th width="125px" align="center"><h2>197</h2></th>
-                            <th width="125px" align="center"><h2>23</h2></th>
+                            <th width="125px" align="center"><h2>1</h2></th>
+                            <th width="125px" align="center"><h2>2</h2></th>
                             <th width="125px" align="center"><h2>0</h2></th>
                             </tr>
                             <tr>
@@ -187,7 +187,7 @@
                         <center>
                             <table>
                             <tr>
-                            <th width="125px" align="center"><h2>11</h2></th>
+                            <th width="125px" align="center"><h2>1</h2></th>
                             <th width="125px" align="center"><h2>0</h2></th>
                             <th width="125px" align="center"><h2>0</h2></th>
                             </tr>
@@ -204,7 +204,7 @@
             </div>
 		</div> <!-- End of Row -->
         <div class="clr-row">
-			<div class="card-columns">
+			<div class="card-columns card-columns-2">
                 <div class="card">
                     <div class="card-block">
                         <h3 class="card-title"><clr-icon shape="success-standard" size="24"></clr-icon> &nbspObjects with Most Alerts</h3>
@@ -216,16 +216,7 @@
                             <th width="250px"><h2><clr-icon shape="exclamation-circle" class="is-warning" size="24"></clr-icon>&nbsp Alerts</h2></th>
                             <th width="250px"><h2><clr-icon shape="warning" class="is-error" size="24"></clr-icon>&nbsp Warnings</h2></th>
                             </tr>
-                            <tr>
-                            <td align="left">172.16.228.30</td>
-                            <td align="center">0</td>
-                            <td align="center">1</td>
-                            </tr>
-                            <tr>
-                            <td align="left">V-ACC1-MGM-EXS1-HYB-INF1</td>
-                            <td align="center">0</td>
-                            <td align="center">1</td>
-                            </tr>
+                                <tr><td align='left'>Cluster01</td><td align='center'>2</td><td align='center'>3</td></tr><tr><td align='left'>Datacenters</td><td align='center'>0</td><td align='center'>1</td></tr><tr><td align='left'>192.168.2.202</td><td align='center'>1</td><td align='center'>0</td></tr>
                             </table>
                         </center>
                         </p>
@@ -236,12 +227,7 @@
                         <h3 class="card-title"><clr-icon shape="plugin" size="24"></clr-icon>&nbsp Installed Plugins</h3>
                         <p class="card-text">
                             <table>
-                            <tr>
-                            <th align="left"><h4>dumpinsight</h4></th>
-                            </tr>
-                            <tr>
-                            <th align="left"><h4>Host PowerTools for VMware</h4></th>
-                            </tr>
+                                <tr><th align='left'>VMware vCenter Storage Monitoring Service</th></tr><tr><th align='left'>vService Manager</th></tr><tr><th align='left'>VirtualCenter dynamic events and tasks</th></tr><tr><th align='left'>Performance charts built-in extension</th></tr><tr><th align='left'>VMware vSphere Profile-driven Storage Service</th></tr><tr><th align='left'>description</th></tr><tr><th align='left'>description</th></tr><tr><th align='left'>License Services</th></tr><tr><th align='left'>vSphere ISO Service</th></tr><tr><th align='left'>vSphere Content Library</th></tr><tr><th align='left'>Open Virtualization Format Service</th></tr><tr><th align='left'>vSphere Content Library Service</th></tr><tr><th align='left'>vSphere ESX Agent Manager</th></tr><tr><th align='left'>vSphere Authentication Proxy</th></tr><tr><th align='left'>VMware vCenter VSAN Data Protection Service</th></tr><tr><th align='left'>VMware vSAN H5 extension</th></tr><tr><th align='left'>VMware vRops extension</th></tr><tr><th align='left'>VMware vSAN Health Service</th></tr><tr><th align='left'>VMware vSphere Update Manager Extension</th></tr><tr><th align='left'>RuleEngine</th></tr>
                             </table>
                         </p>
                     </div>
