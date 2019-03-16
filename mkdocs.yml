@@ -1,0 +1,11 @@
+site_name: ReportCardPS
+repo_url: https://github.com/jpsider/ReportCardPS
+theme: readthedocs
+edit_uri: edit/master/docs/
+pages:
+- Home: index.md
+- ReportCardPS Basics:
+  - What is ReportCardPS: about.md
+  - Quick Start: Quick-Start-Installation-and-Example.md
+- Public Functions:
+  - Invoke-DeployRestPS: NewFunction.md
