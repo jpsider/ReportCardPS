@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <!-- CLARITY CSS-->
-        <link rel="stylesheet" href="https://unpkg.com/@clr/ui/clr-ui-dark.min.css" title="dark" type="text/css" />
-        <link rel="alternate stylesheet" href="https://unpkg.com/@clr/ui/clr-ui.min.css" title="light" type="text/css"/>
-        <link rel="stylesheet" href="https://unpkg.com/clarity-icons/clarity-icons.min.css">
-        <!-- Datatables JS-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
-        <!-- Clarity JS -->
-        <script src="components/js/custom-elements.min.js"></script>
-        <script src="https://unpkg.com/clarity-icons@0.10.28/clarity-icons.min.js"></script>
-        <!-- Custom JS -->
-        <title>ReportCardsPS</title>
-    </head>
-    <script> 
+
+<head>
+    <meta charset="utf-8">
+    <!-- CLARITY CSS-->
+    <link rel="stylesheet" href="https://unpkg.com/@clr/ui/clr-ui-dark.min.css" title="dark" type="text/css" />
+    <link rel="alternate stylesheet" href="https://unpkg.com/@clr/ui/clr-ui.min.css" title="light" type="text/css" />
+    <link rel="stylesheet" href="https://unpkg.com/clarity-icons/clarity-icons.min.css">
+    <!-- Datatables JS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    <!-- Clarity JS -->
+    <script src="components/js/custom-elements.min.js"></script>
+    <script src="https://unpkg.com/clarity-icons@0.10.28/clarity-icons.min.js"></script>
+    <!-- Custom JS -->
+    <title>ReportCardsPS</title>
+
+    <script>
         console.log("Retrieving the 'check' icon template: ", ClarityIcons.get("check"));
         console.log("Retrieving all available icons: ", ClarityIcons.get());
     </script>
@@ -83,148 +84,207 @@
             return '' ;
         }
     </script>
-    <body onload="set_style_from_cookie()">
-        <div class="main-container">
-            <header class="header header-6">
-                <div class="branding">
-                    <a href="index.php" class="nav-link">
-                    <span class="title">ReportCardPS vCenter: REPLACE_vCenterName</span>
-                    </a>
+    <style>
+        flex-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            overflow: auto;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+
+<body onload="set_style_from_cookie()">
+    <div class="main-container">
+        <header class="header header-6">
+            <div class="branding">
+                <a href="index.php" class="nav-link">
+                    <span class="title">ReportCardPS</span>
+                </a>
+            </div>
+            <div class="header-nav">
+                <a href="index.php" class="active nav-link nav-text">Plugin01</a>
+                <a href="index.php" class="nav-link nav-text">Plugin02</a>
+            </div>
+            <div class="header-actions">
+                <div class="btn-group">
+                    <button class="btn btn-inverse btn-sm" type="button" onclick="switch_style('dark');return false;"
+                        name="theme" value="Dark Theme" id="dark">Dark Theme</button>
+                    <button class="btn btn-inverse btn-sm" type="button" onclick="switch_style('light');return false;"
+                        name="theme" value="Light Theme" id="light">Light Theme</button>
                 </div>
-                <div class="header-nav">
-                    <a href="index.php" class="active nav-link nav-text">Plugin01</a>
-                    <a href="index.php" class="nav-link nav-text">Plugin02</a>
-                </div>
-                <div class="header-actions">
-                    <div class="btn-group">
-                        <button class="btn btn-inverse btn-sm" type="button" onclick="switch_style('dark');return false;" name="theme" value="Dark Theme" id="dark">Dark Theme</button>
-                        <button class="btn btn-inverse btn-sm" type="button" onclick="switch_style('light');return false;" name="theme" value="Light Theme" id="light">Light Theme</button>
-                    </div>
-                    <a href="https://github.com/jpsider/reportcardps" class="nav-link nav-icon" target="_blank">
-                        <clr-icon shape="cog"></clr-icon>
-                    </a>
-                </div>
-            </header>
-        <div class="content-container">
-    <div class="content-area"><!-- Start content-area -->
-        <h3>ReportCardsPS</h3>
-        <div class="clr-row">
-            <div class="card-columns">
+                <a href="https://github.com/jpsider/reportcardps" class="nav-link nav-icon" target="_blank">
+                    <clr-icon shape="cog"></clr-icon>
+                </a>
+            </div>
+        </header>
+        <h3>ReportCardsPS - vCenter: REPLACE_vCenterName</h3>
+        </br>
+        </br>
+        <flex-container>
+
+            <div class="flex-item">
                 <div class="card">
                     <div class="card-block">
-                        <h3 class="card-title"><clr-icon shape="cpu" size="24"></clr-icon>&nbsp CPU</h3>
-                        <center><p class="card-text">
-                            <h2>REPLACE_CPU_FREE GHz free</h2>
-                        </p>
-                        <div class="progress-block">
-                            <div class="progress success">
-                                <progress value="29" max="100" data-displayval="REPLACE_CPU_PERCENT%"></progress>
+                        <h3 class="card-title">
+                            <clr-icon shape="cpu" size="24"></clr-icon>&nbsp CPU
+                        </h3>
+                        <center>
+                            <p class="card-text">
+                                <h2>REPLACE_CPU_FREE GHz free</h2>
+                            </p>
+                            <div class="progress-block">
+                                <div class="progress success">
+                                    <progress value="29" max="100" data-displayval="REPLACE_CPU_PERCENT%"></progress>
+                                </div>
                             </div>
-                        </div>
                             REPLACE_CPU_USED MHz used | REPLACE_CPU_TOTAL GHz total
                         </center>
                     </div>
                 </div>
+            </div>
+            <div class="flex-item">
                 <div class="card">
                     <div class="card-block">
-                        <h3 class="card-title"><clr-icon shape="memory" size="24"></clr-icon>&nbsp Memory</h3>
-                        <center><p class="card-text">
-                            <h2>REPLACE_MEMORY_FREE GB free</h2>
-                        </p>
-                        <div class="progress-block">
-                            <div class="progress success">
-                                <progress value="62" max="100" data-displayval="REPLACE_MEMORY_PERCENT%"></progress>
+                        <h3 class="card-title">
+                            <clr-icon shape="memory" size="24"></clr-icon>&nbsp Memory
+                        </h3>
+                        <center>
+                            <p class="card-text">
+                                <h2>REPLACE_MEMORY_FREE GB free</h2>
+                            </p>
+                            <div class="progress-block">
+                                <div class="progress success">
+                                    <progress value="62" max="100" data-displayval="REPLACE_MEMORY_PERCENT%"></progress>
+                                </div>
                             </div>
-                        </div>
                             REPLACE_MEMORY_USED GB used | REPLACE_MEMORY_TOTAL GB total
                         </center>
                     </div>
                 </div>
+            </div>
+            <div class="flex-item">
                 <div class="card">
                     <div class="card-block">
-                        <h3 class="card-title"><clr-icon shape="storage" size="24"></clr-icon>&nbsp Storage</h3>
-                        <center><p class="card-text">
-                            <h2>REPLACE_STORAGE_FREE GB free</h2>
-                        </p>
-                        <div class="progress-block">
-                            <div class="progress success">
-                                <progress value="52" max="100" data-displayval="REPLACE_STORAGE_PERCENT%"></progress>
+                        <h3 class="card-title">
+                            <clr-icon shape="storage" size="24"></clr-icon>&nbsp Storage
+                        </h3>
+                        <center>
+                            <p class="card-text">
+                                <h2>REPLACE_STORAGE_FREE GB free</h2>
+                            </p>
+                            <div class="progress-block">
+                                <div class="progress success">
+                                    <progress value="52" max="100" data-displayval="REPLACE_STORAGE_PERCENT%"></progress>
+                                </div>
                             </div>
-                        </div>
                             REPLACE_STORAGE_USED GB used | REPLACE_STORAGE_TOTAL GB total
                         </center>
                     </div>
                 </div>
             </div>
-        </div> <!-- End of Row -->
-        <div class="clr-row">
-            <div class="card-columns card-columns-2">
+            <div class="flex-item">
                 <div class="card">
                     <div class="card-block">
-                        <h3 class="card-title"><clr-icon shape="vm" size="24"></clr-icon>&nbsp VMs</h3>
+                        <h3 class="card-title">
+                            <clr-icon shape="vm" size="24"></clr-icon>&nbsp VMs
+                        </h3>
                         <p class="card-text">
-                        <center>
-                            <table>
-                            <tr>
-                            <th width="125px" align="center"><h2>REPLACE_VMs_POWEREDON</h2></th>
-                            <th width="125px" align="center"><h2>REPLACE_VMs_POWEREDOFF</h2></th>
-                            <th width="125px" align="center"><h2>REPLACE_VMs_SUSPENEDED</h2></th>
-                            </tr>
-                            <tr>
-                            <td align="center">Powered On</td>
-                            <td align="center">Powered Off</td>
-                            <td align="center">Suspended</td>
-                            </tr>
-                            </table>
+                            <center>
+                                <table>
+                                    <tr>
+                                        <th width="125px" align="center">
+                                            <h2>REPLACE_VMs_POWEREDON</h2>
+                                        </th>
+                                        <th width="125px" align="center">
+                                            <h2>REPLACE_VMs_POWEREDOFF</h2>
+                                        </th>
+                                        <th width="125px" align="center">
+                                            <h2>REPLACE_VMs_SUSPENEDED</h2>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">Powered On</td>
+                                        <td align="center">Powered Off</td>
+                                        <td align="center">Suspended</td>
+                                    </tr>
+                                </table>
                             </center>
                         </p>
                     </div>
                 </div>
+            </div>
+            <div class="flex-item">
                 <div class="card">
                     <div class="card-block">
-                        <h3 class="card-title"><clr-icon shape="host" size="24"></clr-icon>&nbsp Hosts</h3>
+                        <h3 class="card-title">
+                            <clr-icon shape="host" size="24"></clr-icon>&nbsp Hosts
+                        </h3>
                         <p class="card-text">
-                        <center>
-                            <table>
-                            <tr>
-                            <th width="125px" align="center"><h2>REPLACE_HOSTS_CONNECTED</h2></th>
-                            <th width="125px" align="center"><h2>REPLACE_HOSTS_DISCONNECTED</h2></th>
-                            <th width="125px" align="center"><h2>REPLACE_HOSTS_MAINTENANCE</h2></th>
-                            </tr>
-                            <tr>
-                            <td align="center">Connected</td>
-                            <td align="center">Disconnected</td>
-                            <td align="center">Maintenance</td>
-                            </tr>
-                            </table>
-                        </center>
+                            <center>
+                                <table>
+                                    <tr>
+                                        <th width="125px" align="center">
+                                            <h2>REPLACE_HOSTS_CONNECTED</h2>
+                                        </th>
+                                        <th width="125px" align="center">
+                                            <h2>REPLACE_HOSTS_DISCONNECTED</h2>
+                                        </th>
+                                        <th width="125px" align="center">
+                                            <h2>REPLACE_HOSTS_MAINTENANCE</h2>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">Connected</td>
+                                        <td align="center">Disconnected</td>
+                                        <td align="center">Maintenance</td>
+                                    </tr>
+                                </table>
+                            </center>
                         </p>
                     </div>
                 </div>
             </div>
-        </div> <!-- End of Row -->
-        <div class="clr-row">
-            <div class="card-columns card-columns-2">
+            <div class="flex-item">
                 <div class="card">
                     <div class="card-block">
-                        <h3 class="card-title"><clr-icon shape="success-standard" size="24"></clr-icon> &nbspObjects with Most Alerts</h3>
+                        <h3 class="card-title">
+                            <clr-icon shape="success-standard" size="24"></clr-icon> &nbspObjects with Most Alerts
+                        </h3>
                         <p class="card-text">
-                        <center>
-                            <table>
-                            <tr>
-                            <th width="250px" align="left"><h2>Item</h2></th>
-                            <th width="250px"><h2><clr-icon shape="exclamation-circle" class="is-warning" size="24"></clr-icon>&nbsp Alerts</h2></th>
-                            <th width="250px"><h2><clr-icon shape="warning" class="is-error" size="24"></clr-icon>&nbsp Warnings</h2></th>
-                            </tr>
-                                REPLACE_ALERTS
-                            </table>
-                        </center>
+                            <center>
+                                <table>
+                                    <tr>
+                                        <th width="250px" align="left">
+                                            <h2>Item</h2>
+                                        </th>
+                                        <th width="250px">
+                                            <h2>
+                                                <clr-icon shape="exclamation-circle" class="is-warning" size="24"></clr-icon>&nbsp
+                                                Alerts
+                                            </h2>
+                                        </th>
+                                        <th width="250px">
+                                            <h2>
+                                                <clr-icon shape="warning" class="is-error" size="24"></clr-icon>&nbsp
+                                                Warnings
+                                            </h2>
+                                        </th>
+                                    </tr>
+                                    REPLACE_ALERTS
+                                </table>
+                            </center>
                         </p>
                     </div>
                 </div>
+            </div>
+            <div class="flex-item">
                 <div class="card">
                     <div class="card-block">
-                        <h3 class="card-title"><clr-icon shape="plugin" size="24"></clr-icon>&nbsp Installed Plugins</h3>
+                        <h3 class="card-title">
+                            <clr-icon shape="plugin" size="24"></clr-icon>&nbsp Installed Plugins
+                        </h3>
                         <p class="card-text">
                             <table>
                                 REPLACE_PLUGINS
@@ -233,9 +293,8 @@
                     </div>
                 </div>
             </div>
-        </div> <!-- End of Row -->
-    </div><!-- End content-area -->
-</div><!-- End content-container -->
+
+        </flex-container>
 </body>
 
 </html>
