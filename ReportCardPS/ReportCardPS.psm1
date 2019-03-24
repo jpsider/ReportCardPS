@@ -13,9 +13,9 @@ foreach ($folder in @('classes', 'private', 'public', 'includes', 'internal'))
         $files = Get-ChildItem -Path $root -Filter *.ps1 -Recurse
 
         # dot source each file
-        $files | where-Object { $_.name -NotLike '*.Tests.ps1'} | 
-            ForEach-Object {Write-Verbose $_.basename; . $_.FullName}
-    }
+        $files | where-Object { $_.name -NotLike '*.Tests.ps1' } |
+        ForEach-Object { Write-Verbose $_.basename; . $_.FullName }
+}
 }
 
 Export-ModuleMember -function (Get-ChildItem -Path "$PSScriptRoot\public\*.ps1").basename
