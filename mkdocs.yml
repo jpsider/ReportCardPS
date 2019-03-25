@@ -8,4 +8,4 @@ pages:
   - What is ReportCardPS: about.md
   - Quick Start: Quick-Start-Installation-and-Example.md
 - Public Functions:
-  - Invoke-DeployRestPS: New-ReportCard.md
+  - New-ReportCard: New-ReportCard.md
