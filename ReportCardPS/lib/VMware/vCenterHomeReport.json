@@ -1,0 +1,37 @@
+[
+  {
+    "CardTile": "CPU",
+    "CardFunction": "Get-vCenterCPU",
+    "CardArguments": ""
+  },
+  {
+    "CardTile": "Memory",
+    "CardFunction": "Get-vCenterMemory",
+    "CardArguments": ""
+  },
+  {
+    "CardTile": "Storage",
+    "CardFunction": "Get-vCenterStorage",
+    "CardArguments": ""
+  },
+  {
+    "CardTile": "VirtualMachines",
+    "CardFunction": "Get-vCenterVMs",
+    "CardArguments": ""
+  },
+  {
+    "CardTile": "Hosts",
+    "CardFunction": "Get-vCenterHosts",
+    "CardArguments": ""
+  },
+  {
+    "CardTile": "Alarms",
+    "CardFunction": "Get-vCenterAlarms",
+    "CardArguments": ""
+  },
+  {
+    "CardTile": "Plugins",
+    "CardFunction": "Get-vCenterPlugins",
+    "CardArguments": ""
+  }
+]

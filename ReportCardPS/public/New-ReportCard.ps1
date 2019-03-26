@@ -34,6 +34,14 @@ function New-ReportCard
             Write-Output "Connect to your vCenter!"
             Write-Output "Then run the function 'Invoke-vCenterHomeReport' add the paths if you want."
             Write-Output "Then pop the page up and do whatever you'd like with it."
+            # The real tasks!
+            # Validate the Template Json Path
+            # Get the Template Header
+            # add the h3 title
+            # Loop through the Json to create the HTML file.
+            # Add the footer
+            # Output the data (Allow passthru?)
+
         }
         catch
         {
