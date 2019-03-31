@@ -37,7 +37,6 @@ function New-ReportCard
             # The real tasks!
             # Validate the Template Json Path
             # Get the Template Header
-            # add the h3 title
             # Loop through the Json to create the HTML file.
             # Add the footer
             # Output the data (Allow passthru?)

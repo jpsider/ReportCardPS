@@ -1,4 +1,4 @@
-function Get-vCenterHosts
+function Get-ReportCardTemplateSet
 {
     <#
     .DESCRIPTION
@@ -8,7 +8,7 @@ function Get-vCenterHosts
     .PARAMETER tbd02
         working on the details
     .EXAMPLE
-        Get-vCenterHosts
+        Get-ReportCardTemplateSet
     .NOTES
         No notes at this time.
     #>
@@ -17,27 +17,25 @@ function Get-vCenterHosts
         ConfirmImpact = "Low"
     )]
     [OutputType([String])]
+    [OutputType([Boolean])]
     param(
         [Parameter()][String]$tbd01,
         [Parameter()][String]$tbd02
     )
-    if ($pscmdlet.ShouldProcess("Starting Get-vCenterHosts function."))
+    if ($pscmdlet.ShouldProcess("Starting Get-ReportCardTemplateSet function."))
     {
         try
         {
-            #Add Function details
-            # Hosts Section
-            # Get a list of all the VMhosts
-            $VMHosts = Get-VMHost
-            $ConnectedVMHosts = ($VMHosts | Where-Object {$_.ConnectionState -eq "Connected"} | Measure-Object).count
-            $DisConnectedVMHosts = ($VMHosts | Where-Object {$_.ConnectionState -eq "DisConnected"} | Measure-Object).count
-            $MaintenanceVMHosts = ($VMHosts | Where-Object {$_.ConnectionState -eq "Maintenance"} | Measure-Object).count
+            # Add Function details
+            # If a path is specified, return the .json files.
+            # otherwise use the default module location
+
         }
         catch
         {
             $ErrorMessage = $_.Exception.Message
             $FailedItem = $_.Exception.ItemName
-            Throw "Get-vCenterHosts: $ErrorMessage $FailedItem"
+            Throw "Get-ReportCardTemplateSet: $ErrorMessage $FailedItem"
         }
     }
     else

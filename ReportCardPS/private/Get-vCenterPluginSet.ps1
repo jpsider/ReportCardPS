@@ -1,4 +1,4 @@
-function Get-vCenterPlugins
+function Get-vCenterPluginSet
 {
     <#
     .DESCRIPTION
@@ -8,7 +8,7 @@ function Get-vCenterPlugins
     .PARAMETER tbd02
         working on the details
     .EXAMPLE
-        Get-vCenterPlugins
+        Get-vCenterPluginSet
     .NOTES
         No notes at this time.
     #>
@@ -21,7 +21,7 @@ function Get-vCenterPlugins
         [Parameter()][String]$tbd01,
         [Parameter()][String]$tbd02
     )
-    if ($pscmdlet.ShouldProcess("Starting Get-vCenterPlugins function."))
+    if ($pscmdlet.ShouldProcess("Starting Get-vCenterPluginSet function."))
     {
         try
         {
@@ -29,13 +29,21 @@ function Get-vCenterPlugins
             # Get the list of vCenter plugins
             $ExtensionManager = Get-View ExtensionManager
 
-            $InstalledPlugins = $ExtensionManager.ExtensionList | Select-Object @{N='Name';E={$_.Description.Label}},Version,Company 
+            $InstalledPlugins = $ExtensionManager.ExtensionList | Select-Object @{N = 'Name'; E = { $_.Description.Label } }, Version, Company | ConvertTo-Html -Fragment
+
+            # Build the HTML Card
+            $PluginCard = New-ClarityCard -Title Plugin -Icon Plugin -IconSize 
+            $PluginCardBody = New-ClarityCardBody -CardText "$InstalledPlugins"
+            $PluginCardBody += Close-ClarityCardBody
+            $PluginCard += $PluginCardBody
+            $PluginCard += Close-ClarityCard
+            $PluginCard
         }
         catch
         {
             $ErrorMessage = $_.Exception.Message
             $FailedItem = $_.Exception.ItemName
-            Throw "Get-vCenterPlugins: $ErrorMessage $FailedItem"
+            Throw "Get-vCenterPluginSet: $ErrorMessage $FailedItem"
         }
     }
     else

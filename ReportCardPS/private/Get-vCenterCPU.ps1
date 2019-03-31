@@ -26,36 +26,37 @@ function Get-vCenterCPU
         try
         {
             # Setup some empty Variables to store things
-            $vCenterMemoryTotalGB = $null
-            $vCenterMemoryUsageGB = $null
             $vCenterCpuTotalMhz = $null
             $vCenterCpuUsageMhz = $null
-            # Loop Through the hosts to get the Memory and CPU stats
-            Write-Output "Looping through the VMHosts to gather Memory and CPU data."
-            foreach($VMHost in $VMHosts){
+            # Loop Through the hosts to get the and CPU stats
+            Write-Output "Looping through the VMHosts to gather and CPU data."
+            foreach ($VMHost in $VMHosts)
+            {
                 $VMHostName = $VMHost.Name
                 Write-Output "Collecting Stats for $VMHostName"
-                $thisVMhostMemoryTotalGB = $VMHost.MemoryTotalGB
-                $thisVMhostMemoryUsageGB = $VMHost.MemoryUsageGB
                 $thisVMhostCpuTotalMhz = $VMHost.CpuTotalMhz
                 $thisVMhostCpuUsageMhz = $VMHost.CpuUsageMhz
                 # Add the Items to the total
-                $vCenterMemoryTotalGB += $thisVMhostMemoryTotalGB
-                $vCenterMemoryUsageGB += $thisVMhostMemoryUsageGB
-                $vCenterCpuTotalMhz   += $thisVMhostCpuTotalMhz
-                $vCenterCpuUsageMhz   += $thisVMhostCpuUsageMhz
+                $vCenterCpuTotalMhz += $thisVMhostCpuTotalMhz
+                $vCenterCpuUsageMhz += $thisVMhostCpuUsageMhz
             }
-            #Mem
-            $vCenterMemoryTotalGB = [math]::Round($vCenterMemoryTotalGB,2)
-            $vCenterMemoryUsageGB = [math]::Round($vCenterMemoryUsageGB,2)
-            $vCenterMemoryUsagePercent = ([math]::Round(($vCenterMemoryUsageGB/$vCenterMemoryTotalGB),2)) * 100
-            $vCenterMemoryUsageFree = $vCenterMemoryTotalGB - $vCenterMemoryUsageGB
 
             #CPU
-            $vCenterCpuUsagePercent = ([math]::Round(($vCenterCpuUsageMhz/$vCenterCpuTotalMhz),2)) * 100
-            $vCenterCPUFreeMhz = ([math]::Round(($vCenterCpuTotalMhz - $vCenterCpuUsageMhz),2))
-            $vCenterCPUFreeGhz = $vCenterCPUFreeMhz/1000
-            $vCenterCpuTotalGhz = $vCenterCpuTotalMhz/1000
+            $vCenterCpuUsagePercent = ([math]::Round(($vCenterCpuUsageMhz / $vCenterCpuTotalMhz), 2)) * 100
+            $vCenterCPUFreeMhz = ([math]::Round(($vCenterCpuTotalMhz - $vCenterCpuUsageMhz), 2))
+            $vCenterCPUFreeGhz = $vCenterCPUFreeMhz / 1000
+            $vCenterCpuTotalGhz = $vCenterCpuTotalMhz / 1000
+
+            # Build the HTML Card
+            $CPUCard = New-ClarityCard -Title CPU -Icon CPU -IconSize 24
+
+            $CPUCardBody = New-ClarityCardBody -CardText "$vCenterCPUFreeGhz GHz free"
+            $CPUCardBody += New-ClarityProgressBar -value $vCenterCPUUsagePercent -max 100 -DisplayValue $vCenterCPUUsagePercent
+            $CPUCardBody += New-ClarityCardBodyFooter -FooterText "$vCenterCpuTotalMhz MHz used | $vCenterCpuTotalGhz GHz total"
+            $CPUCardBody += Close-ClarityCardBody
+            $CPUCard += $CPUCardBody
+            $CPUCard += Close-ClarityCard
+            $CPUCard
         }
         catch
         {

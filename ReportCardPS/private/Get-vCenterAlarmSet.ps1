@@ -1,4 +1,4 @@
-function Get-vCenterAlarms
+function Get-vCenterAlarmSet
 {
     <#
     .DESCRIPTION
@@ -8,7 +8,7 @@ function Get-vCenterAlarms
     .PARAMETER tbd02
         working on the details
     .EXAMPLE
-        Get-vCenterAlarms
+        Get-vCenterAlarmSet
     .NOTES
         No notes at this time.
     #>
@@ -21,7 +21,7 @@ function Get-vCenterAlarms
         [Parameter()][String]$tbd01,
         [Parameter()][String]$tbd02
     )
-    if ($pscmdlet.ShouldProcess("Starting Get-vCenterAlarms function."))
+    if ($pscmdlet.ShouldProcess("Starting Get-vCenterAlarmSet function."))
     {
         try
         {
@@ -52,14 +52,21 @@ function Get-vCenterAlarms
                     $vCenterAlarmCollection.Add($thisItem) | Out-Null
                 }
             }
-            $vCenterTop5Alarms = $vCenterAlarmCollection | Sort-Object -Property thisItemWarningsCount -Descending | Select-Object -First 5
-            $vCenterTop5Alarms
+            $vCenterTop5Alarms = $vCenterAlarmCollection | Sort-Object -Property thisItemWarningsCount -Descending | Select-Object -First 5 | ConvertTo-Html -Fragment
+
+            # Build the HTML Card
+            $AlarmsCard = New-ClarityCard -Title Plugin -Icon Plugin -IconSize 
+            $AlarmsCardBody = New-ClarityCardBody -CardText "$vCenterTop5Alarms"
+            $AlarmsCardBody += Close-ClarityCardBody
+            $AlarmsCard += $AlarmsCardBody
+            $AlarmsCard += Close-ClarityCard
+            $AlarmsCard
         }
         catch
         {
             $ErrorMessage = $_.Exception.Message
             $FailedItem = $_.Exception.ItemName
-            Throw "Get-vCenterAlarms: $ErrorMessage $FailedItem"
+            Throw "Get-vCenterAlarmSet: $ErrorMessage $FailedItem"
         }
     }
     else

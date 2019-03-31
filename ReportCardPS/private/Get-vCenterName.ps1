@@ -1,4 +1,4 @@
-function Get-vCenterVMs
+function Get-vCenterName
 {
     <#
     .DESCRIPTION
@@ -8,7 +8,7 @@ function Get-vCenterVMs
     .PARAMETER tbd02
         working on the details
     .EXAMPLE
-        Get-vCenterVMs
+        Get-vCenterName
     .NOTES
         No notes at this time.
     #>
@@ -21,22 +21,18 @@ function Get-vCenterVMs
         [Parameter()][String]$tbd01,
         [Parameter()][String]$tbd02
     )
-    if ($pscmdlet.ShouldProcess("Starting Get-vCenterVMs function."))
+    if ($pscmdlet.ShouldProcess("Starting Get-vCenterName function."))
     {
         try
         {
-            #Add Function details
-            # VMs Section
-            $vmList = Get-VM | Select-Object PowerState
-            $PoweredOnVMsCount = ($vmList | Where-Object {$_.PowerState -eq "PoweredOn"} | Measure-Object).count
-            $PoweredOffVMsCount = ($vmList | Where-Object {$_.PowerState -eq "PoweredOff"} | Measure-Object).count
-            $SuspendedVMsCount = ($vmList | Where-Object {$_.PowerState -eq "Suspended"} | Measure-Object).count
+            # Setup some empty Variables to store things
+            # Determine if we are connected to a vCenter, if so grab the name, else Throw massive errors.
         }
         catch
         {
             $ErrorMessage = $_.Exception.Message
             $FailedItem = $_.Exception.ItemName
-            Throw "Get-vCenterVMs: $ErrorMessage $FailedItem"
+            Throw "Get-vCenterName: $ErrorMessage $FailedItem"
         }
     }
     else

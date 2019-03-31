@@ -25,37 +25,38 @@ function Get-vCenterMemory
     {
         try
         {
-           # Setup some empty Variables to store things
-           $vCenterMemoryTotalGB = $null
-           $vCenterMemoryUsageGB = $null
-           $vCenterCpuTotalMhz = $null
-           $vCenterCpuUsageMhz = $null
-           # Loop Through the hosts to get the Memory and CPU stats
-           Write-Output "Looping through the VMHosts to gather Memory and CPU data."
-           foreach($VMHost in $VMHosts){
-               $VMHostName = $VMHost.Name
-               Write-Output "Collecting Stats for $VMHostName"
-               $thisVMhostMemoryTotalGB = $VMHost.MemoryTotalGB
-               $thisVMhostMemoryUsageGB = $VMHost.MemoryUsageGB
-               $thisVMhostCpuTotalMhz = $VMHost.CpuTotalMhz
-               $thisVMhostCpuUsageMhz = $VMHost.CpuUsageMhz
-               # Add the Items to the total
-               $vCenterMemoryTotalGB += $thisVMhostMemoryTotalGB
-               $vCenterMemoryUsageGB += $thisVMhostMemoryUsageGB
-               $vCenterCpuTotalMhz   += $thisVMhostCpuTotalMhz
-               $vCenterCpuUsageMhz   += $thisVMhostCpuUsageMhz
-           }
-           #Mem
-           $vCenterMemoryTotalGB = [math]::Round($vCenterMemoryTotalGB,2)
-           $vCenterMemoryUsageGB = [math]::Round($vCenterMemoryUsageGB,2)
-           $vCenterMemoryUsagePercent = ([math]::Round(($vCenterMemoryUsageGB/$vCenterMemoryTotalGB),2)) * 100
-           $vCenterMemoryUsageFree = $vCenterMemoryTotalGB - $vCenterMemoryUsageGB
+            # Setup some empty Variables to store things
+            $vCenterMemoryTotalGB = $null
+            $vCenterMemoryUsageGB = $null
+            # Loop Through the hosts to get the Memory and CPU stats
+            Write-Output "Looping through the VMHosts to gather Memory and CPU data."
+            foreach ($VMHost in $VMHosts)
+            {
+                $VMHostName = $VMHost.Name
+                Write-Output "Collecting Stats for $VMHostName"
+                $thisVMhostMemoryTotalGB = $VMHost.MemoryTotalGB
+                $thisVMhostMemoryUsageGB = $VMHost.MemoryUsageGB
+                # Add the Items to the total
+                $vCenterMemoryTotalGB += $thisVMhostMemoryTotalGB
+                $vCenterMemoryUsageGB += $thisVMhostMemoryUsageGB
+            }
+            #Mem
+            $vCenterMemoryTotalGB = [math]::Round($vCenterMemoryTotalGB, 2)
+            $vCenterMemoryUsageGB = [math]::Round($vCenterMemoryUsageGB, 2)
+            $vCenterMemoryUsagePercent = ([math]::Round(($vCenterMemoryUsageGB / $vCenterMemoryTotalGB), 2)) * 100
+            $vCenterMemoryUsageFree = $vCenterMemoryTotalGB - $vCenterMemoryUsageGB
 
-           #CPU
-           $vCenterCpuUsagePercent = ([math]::Round(($vCenterCpuUsageMhz/$vCenterCpuTotalMhz),2)) * 100
-           $vCenterCPUFreeMhz = ([math]::Round(($vCenterCpuTotalMhz - $vCenterCpuUsageMhz),2))
-           $vCenterCPUFreeGhz = $vCenterCPUFreeMhz/1000
-           $vCenterCpuTotalGhz = $vCenterCpuTotalMhz/1000
+            # Build the HTML Card
+            $MemoryCard = New-ClarityCard -Title Memory -Icon Memory -IconSize 24
+
+            $MemoryCardBody = New-ClarityCardBody -CardText "$vCenterMemoryUsageFree GB free"
+            $MemoryCardBody += New-ClarityProgressBar -value $vCenterMemoryUsagePercent -max 100 -DisplayValue $vCenterMemoryUsagePercent
+            $MemoryCardBody += New-ClarityCardBodyFooter -FooterText "$vCenterMemoryUsageGB GB used | $vCenterMemoryTotalGB GB total"
+            $MemoryCardBody += Close-ClarityCardBody
+            $MemoryCard += $MemoryCardBody
+            $MemoryCard += Close-ClarityCard
+            $MemoryCard
+
         }
         catch
         {

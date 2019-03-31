@@ -1,37 +1,50 @@
 [
   {
+    "CardTile": "ReportCardTitle",
+    "CardFunction": "Get-vCenterName",
+    "CardArguments": "",
+    "Order": "1"
+  },
+  {
     "CardTile": "CPU",
     "CardFunction": "Get-vCenterCPU",
-    "CardArguments": ""
+    "CardArguments": "",
+    "Order": "2"
   },
   {
     "CardTile": "Memory",
     "CardFunction": "Get-vCenterMemory",
-    "CardArguments": ""
+    "CardArguments": "",
+    "Order": "3"
   },
   {
     "CardTile": "Storage",
     "CardFunction": "Get-vCenterStorage",
-    "CardArguments": ""
+    "CardArguments": "",
+    "Order": "4"
   },
   {
     "CardTile": "VirtualMachines",
-    "CardFunction": "Get-vCenterVMs",
-    "CardArguments": ""
+    "CardFunction": "Get-vCenterVMSet",
+    "CardArguments": "",
+    "Order": "5"
   },
   {
     "CardTile": "Hosts",
-    "CardFunction": "Get-vCenterHosts",
-    "CardArguments": ""
+    "CardFunction": "Get-vCenterHostSet",
+    "CardArguments": "",
+    "Order": "6"
   },
   {
     "CardTile": "Alarms",
-    "CardFunction": "Get-vCenterAlarms",
-    "CardArguments": ""
+    "CardFunction": "Get-vCenterAlarmSet",
+    "CardArguments": "",
+    "Order": "7"
   },
   {
     "CardTile": "Plugins",
-    "CardFunction": "Get-vCenterPlugins",
-    "CardArguments": ""
+    "CardFunction": "Get-vCenterPluginSet",
+    "CardArguments": "",
+    "Order": "8"
   }
 ]

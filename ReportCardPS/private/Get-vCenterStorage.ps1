@@ -35,17 +35,29 @@ function Get-vCenterStorage
             $vCenterCapacityGB = $null
 
             # Loop Through each to determine the Used space.
-            foreach($DataStore in $DataStores){
+            foreach ($DataStore in $DataStores)
+            {
                 $thisDSCapacityGB = $Datastore.CapacityGB
                 $thisDSFreeSpaceGB = $DataStore.FreeSpaceGB
 
                 $vCenterFreeSpaceGB += $thisDSFreeSpaceGB
-                $vCenterCapacityGB  += $thisDSCapacityGB
+                $vCenterCapacityGB += $thisDSCapacityGB
             }
-            $vCenterFreeSpaceGB = ([math]::Round($vCenterFreeSpaceGB,2))
-            $vCenterCapacityGB = ([math]::Round($vCenterCapacityGB,2))
-            $vCenterUsedSpaceGB = ([math]::Round(($vCenterCapacityGB - $vCenterFreeSpaceGB),2))
-            $vCenterUsedSpaceGBPercent = ([math]::Round(($vCenterUsedSpaceGB/$vCenterCapacityGB),2)) * 100
+            $vCenterFreeSpaceGB = ([math]::Round($vCenterFreeSpaceGB, 2))
+            $vCenterCapacityGB = ([math]::Round($vCenterCapacityGB, 2))
+            $vCenterUsedSpaceGB = ([math]::Round(($vCenterCapacityGB - $vCenterFreeSpaceGB), 2))
+            $vCenterUsedSpaceGBPercent = ([math]::Round(($vCenterUsedSpaceGB / $vCenterCapacityGB), 2)) * 100
+
+            # Build the HTML Card
+            $StorageCard = New-ClarityCard -Title Storage -Icon Storage -IconSize 24
+
+            $StorageCardBody = New-ClarityCardBody -CardText "$vCenterFreeSpaceGB GB free"
+            $StorageCardBody += New-ClarityProgressBar -value $vCenterUsedSpaceGBPercent -max 100 -DisplayValue $vCenterUsedSpaceGBPercent
+            $StorageCardBody += New-ClarityCardBodyFooter -FooterText "$vCenterUsedSpaceGB GB used | $vCenterCapacityGB GB total"
+            $StorageCardBody += Close-ClarityCardBody
+            $StorageCard += $StorageCardBody
+            $StorageCard += Close-ClarityCard
+            $StorageCard
         }
         catch
         {
