@@ -2,13 +2,13 @@ function Get-vCenterPluginSet
 {
     <#
     .DESCRIPTION
-        Builds HTML Reports using VMware's ClarityUI library.
-    .PARAMETER tbd01
-        working on the details
-    .PARAMETER tbd02
-        working on the details
+        Builds HTML Card with vCenter Plugin data using VMware's ClarityUI library.
+    .PARAMETER Filter
+        Optional - Provide a String to use as a filter. example: vSphere
     .EXAMPLE
         Get-vCenterPluginSet
+    .EXAMPLE
+        Get-vCenterPluginSet -Filter vSphere
     .NOTES
         No notes at this time.
     #>
@@ -18,22 +18,22 @@ function Get-vCenterPluginSet
     )]
     [OutputType([String])]
     param(
-        [Parameter()][String]$tbd01,
-        [Parameter()][String]$tbd02
+        [Parameter()][String]$Filter
     )
     if ($pscmdlet.ShouldProcess("Starting Get-vCenterPluginSet function."))
     {
         try
         {
-            #Add Function details
-            # Get the list of vCenter plugins
+            # Grab the Extention Manager Object
             $ExtensionManager = Get-View ExtensionManager
-
-            $InstalledPlugins = $ExtensionManager.ExtensionList | Select-Object @{N = 'Name'; E = { $_.Description.Label } }, Version, Company | ConvertTo-Html -Fragment
+            # Get the list of vCenter plugins that match the filter
+            $InstalledPlugins = $ExtensionManager.ExtensionList | Select-Object @{N = 'Name'; E = { $_.Description.Label } }, Version, Company | Where-Object {$_.Name -like "*$Filter*"}
+            # Convert the List to HTML table
+            $InstalledPluginsList = $InstalledPlugins | ConvertTo-Html -Fragment
 
             # Build the HTML Card
-            $PluginCard = New-ClarityCard -Title Plugin -Icon Plugin -IconSize 
-            $PluginCardBody = New-ClarityCardBody -CardText "$InstalledPlugins"
+            $PluginCard = New-ClarityCard -Title "vCenter Plugins" -Icon Plugin -IconSize 
+            $PluginCardBody = New-ClarityCardBody -CardText "$InstalledPluginsList"
             $PluginCardBody += Close-ClarityCardBody
             $PluginCard += $PluginCardBody
             $PluginCard += Close-ClarityCard
