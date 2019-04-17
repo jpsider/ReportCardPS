@@ -17,6 +17,7 @@ function Get-vCenterVMSet
         ConfirmImpact = "Low"
     )]
     [OutputType([String])]
+    [OutputType([boolean])]
     param(
         [Parameter()][String]$Include,
         [Parameter()][String]$Exclude
@@ -50,7 +51,7 @@ function Get-vCenterVMSet
             $vmObject | ConvertTo-Html -Fragment
 
             # Build the HTML Card
-            $VMCard = New-ClarityCard -Title VM -Icon VM -IconSize 
+            $VMCard = New-ClarityCard -Title VM -Icon VM -IconSize
             $VMCardBody = New-ClarityCardBody -CardText "$vmObject"
             $VMCardBody += Close-ClarityCardBody
             $VMCard += $VMCardBody

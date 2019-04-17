@@ -17,6 +17,7 @@ function Get-vCenterCPU
         ConfirmImpact = "Low"
     )]
     [OutputType([String])]
+    [OutputType([boolean])]
     param(
         [Parameter()][String]$Include,
         [Parameter()][String]$Exclude
@@ -26,11 +27,11 @@ function Get-vCenterCPU
         try
         {
             # Get the VMHosts
-            if ($null -ne $Include)
+            if ($Include)
             {
                 $VMHosts = Get-VMHost | Where-Object { $_.Name -like "*$Include*" }
             }
-            elseif ($null -ne $Exclude)
+            elseif ($Exclude)
             {
                 $VMHosts = Get-VMHost | Where-Object { $_.Name -notlike "*$Exclude*" }
             }
@@ -38,7 +39,7 @@ function Get-vCenterCPU
             {
                 $VMHosts = Get-VMHost
             }
-            
+
             # Setup some empty Variables to store things
             $vCenterCpuTotalMhz = $null
             $vCenterCpuUsageMhz = $null

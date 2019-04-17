@@ -17,6 +17,7 @@ function Get-vCenterPluginSet
         ConfirmImpact = "Low"
     )]
     [OutputType([String])]
+    [OutputType([boolean])]
     param(
         [Parameter()][String]$Filter
     )
@@ -27,12 +28,12 @@ function Get-vCenterPluginSet
             # Grab the Extention Manager Object
             $ExtensionManager = Get-View ExtensionManager
             # Get the list of vCenter plugins that match the filter
-            $InstalledPlugins = $ExtensionManager.ExtensionList | Select-Object @{N = 'Name'; E = { $_.Description.Label } }, Version, Company | Where-Object {$_.Name -like "*$Filter*"}
+            $InstalledPlugins = $ExtensionManager.ExtensionList | Select-Object @{N = 'Name'; E = { $_.Description.Label } }, Version, Company | Where-Object { $_.Name -like "*$Filter*" }
             # Convert the List to HTML table
             $InstalledPluginsList = $InstalledPlugins | ConvertTo-Html -Fragment
 
             # Build the HTML Card
-            $PluginCard = New-ClarityCard -Title "vCenter Plugins" -Icon Plugin -IconSize 
+            $PluginCard = New-ClarityCard -Title "vCenter Plugins" -Icon Plugin -IconSize
             $PluginCardBody = New-ClarityCardBody -CardText "$InstalledPluginsList"
             $PluginCardBody += Close-ClarityCardBody
             $PluginCard += $PluginCardBody

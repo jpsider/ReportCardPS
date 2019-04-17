@@ -17,6 +17,7 @@ function Get-vCenterStorage
         ConfirmImpact = "Low"
     )]
     [OutputType([String])]
+    [OutputType([boolean])]
     param(
         [Parameter()][String]$Include,
         [Parameter()][String]$Exclude
@@ -27,11 +28,11 @@ function Get-vCenterStorage
         {
             # Get the DataStores
             Write-Output "Gathering Storage Data."
-            if ($null -ne $Include)
+            if ($Include)
             {
                 $DataStores = Get-DataStore | Where-Object { $_.Name -like "*$Include*" }
             }
-            elseif ($null -ne $Exclude)
+            elseif ($Exclude)
             {
                 $DataStores = Get-Datastore | Where-Object { $_.Name -notlike "*$Exclude*" }
             }

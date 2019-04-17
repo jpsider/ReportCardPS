@@ -17,6 +17,7 @@ function Get-vCenterHostSet
         ConfirmImpact = "Low"
     )]
     [OutputType([String])]
+    [OutputType([boolean])]
     param(
         [Parameter()][String]$Include,
         [Parameter()][String]$Exclude
@@ -27,11 +28,11 @@ function Get-vCenterHostSet
         {
             #Add Function details
             # Get the VMHosts
-            if ($null -ne $Include)
+            if ($Include)
             {
                 $VMHosts = Get-VMHost | Where-Object { $_.Name -like "*$Include*" }
             }
-            elseif ($null -ne $Exclude)
+            elseif ($Exclude)
             {
                 $VMHosts = Get-VMHost | Where-Object { $_.Name -notlike "*$Exclude*" }
             }
@@ -51,7 +52,7 @@ function Get-vCenterHostSet
             $vmHostObject | ConvertTo-Html -Fragment
 
             # Build the HTML Card
-            $vmHostCard = New-ClarityCard -Title VMHosts -Icon VMHosts -IconSize 
+            $vmHostCard = New-ClarityCard -Title VMHosts -Icon VMHosts -IconSize
             $vmHostCardBody = New-ClarityCardBody -CardText "$vmHostObject"
             $vmHostCardBody += Close-ClarityCardBody
             $vmHostCard += $vmHostCardBody
