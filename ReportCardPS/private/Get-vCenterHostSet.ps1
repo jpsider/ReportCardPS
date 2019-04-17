@@ -2,11 +2,11 @@ function Get-vCenterHostSet
 {
     <#
     .DESCRIPTION
-        Builds HTML Reports using VMware's ClarityUI library.
-    .PARAMETER tbd01
-        working on the details
-    .PARAMETER tbd02
-        working on the details
+        Gathers VMHost State information.
+    .PARAMETER Include
+        Provide a String to use when including specific VMHosts based on Name
+    .PARAMETER Exclude
+        Provide a String to use when excluding specific VMHosts based on Name
     .EXAMPLE
         Get-vCenterHostSet
     .NOTES
@@ -18,17 +18,27 @@ function Get-vCenterHostSet
     )]
     [OutputType([String])]
     param(
-        [Parameter()][String]$tbd01,
-        [Parameter()][String]$tbd02
+        [Parameter()][String]$Include,
+        [Parameter()][String]$Exclude
     )
     if ($pscmdlet.ShouldProcess("Starting Get-vCenterHostSet function."))
     {
         try
         {
             #Add Function details
-            # Hosts Section
-            # Get a list of all the VMhosts
-            $VMHosts = Get-VMHost
+            # Get the VMHosts
+            if ($null -ne $Include)
+            {
+                $VMHosts = Get-VMHost | Where-Object { $_.Name -like "*$Include*" }
+            }
+            elseif ($null -ne $Exclude)
+            {
+                $VMHosts = Get-VMHost | Where-Object { $_.Name -notlike "*$Exclude*" }
+            }
+            else
+            {
+                $VMHosts = Get-VMHost
+            }
             $ConnectedVMHosts = ($VMHosts | Where-Object { $_.ConnectionState -eq "Connected" } | Measure-Object).count
             $DisConnectedVMHosts = ($VMHosts | Where-Object { $_.ConnectionState -eq "DisConnected" } | Measure-Object).count
             $MaintenanceVMHosts = ($VMHosts | Where-Object { $_.ConnectionState -eq "Maintenance" } | Measure-Object).count

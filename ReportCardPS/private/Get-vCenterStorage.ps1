@@ -3,10 +3,10 @@ function Get-vCenterStorage
     <#
     .DESCRIPTION
         Builds HTML Reports using VMware's ClarityUI library.
-    .PARAMETER tbd01
-        working on the details
-    .PARAMETER tbd02
-        working on the details
+    .PARAMETER Include
+        Provide a String to use when including specific DataStores based on Name
+    .PARAMETER Exclude
+        Provide a String to use when excluding specific DataStores based on Name
     .EXAMPLE
         Get-vCenterStorage
     .NOTES
@@ -18,17 +18,27 @@ function Get-vCenterStorage
     )]
     [OutputType([String])]
     param(
-        [Parameter()][String]$tbd01,
-        [Parameter()][String]$tbd02
+        [Parameter()][String]$Include,
+        [Parameter()][String]$Exclude
     )
     if ($pscmdlet.ShouldProcess("Starting Get-vCenterStorage function."))
     {
         try
         {
-            #Add Function details
-            # Get the List of DataStores
+            # Get the DataStores
             Write-Output "Gathering Storage Data."
-            $DataStores = Get-Datastore
+            if ($null -ne $Include)
+            {
+                $DataStores = Get-DataStore | Where-Object { $_.Name -like "*$Include*" }
+            }
+            elseif ($null -ne $Exclude)
+            {
+                $DataStores = Get-Datastore | Where-Object { $_.Name -notlike "*$Exclude*" }
+            }
+            else
+            {
+                $DataStores = Get-Datastore
+            }
 
             # Start some Empty Variables to store things
             $vCenterFreeSpaceGB = $null
@@ -52,7 +62,7 @@ function Get-vCenterStorage
             $StorageCard = New-ClarityCard -Title Storage -Icon Storage -IconSize 24
 
             $StorageCardBody = New-ClarityCardBody -CardText "$vCenterFreeSpaceGB GB free"
-            $StorageCardBody += New-ClarityProgressBar -value $vCenterUsedSpaceGBPercent -max 100 -DisplayValue $vCenterUsedSpaceGBPercent
+            $StorageCardBody += New-ClarityProgressBlock -value $vCenterUsedSpaceGBPercent -max 100 -DisplayValue $vCenterUsedSpaceGBPercent
             $StorageCardBody += New-ClarityCardBodyFooter -FooterText "$vCenterUsedSpaceGB GB used | $vCenterCapacityGB GB total"
             $StorageCardBody += Close-ClarityCardBody
             $StorageCard += $StorageCardBody

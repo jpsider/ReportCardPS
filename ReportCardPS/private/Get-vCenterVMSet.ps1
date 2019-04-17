@@ -2,11 +2,11 @@ function Get-vCenterVMSet
 {
     <#
     .DESCRIPTION
-        Builds HTML Reports using VMware's ClarityUI library.
-    .PARAMETER tbd01
-        working on the details
-    .PARAMETER tbd02
-        working on the details
+        Gathers VM data for PowerState report.
+    .PARAMETER Include
+        Provide a String to use when including specific VMs based on Name
+    .PARAMETER Exclude
+        Provide a String to use when excluding specific VMs based on Name
     .EXAMPLE
         Get-vCenterVMSet
     .NOTES
@@ -18,16 +18,26 @@ function Get-vCenterVMSet
     )]
     [OutputType([String])]
     param(
-        [Parameter()][String]$tbd01,
-        [Parameter()][String]$tbd02
+        [Parameter()][String]$Include,
+        [Parameter()][String]$Exclude
     )
     if ($pscmdlet.ShouldProcess("Starting Get-vCenterVMSet function."))
     {
         try
         {
-            #Add Function details
-            # VMs Section
-            $vmList = Get-VM | Select-Object PowerState
+            if ($Include)
+            {
+                $vmList = Get-VM | Where-Object { $_.Name -like "*$Include*" } | Select-Object PowerState
+            }
+            elseif ($Exclude)
+            {
+                $vmList = Get-VM | Where-Object { $_.Name -notlike "*$Exclude*" } | Select-Object PowerState
+            }
+            else
+            {
+                $vmList = Get-VM | Select-Object PowerState
+            }
+
             $PoweredOnVMsCount = ($vmList | Where-Object { $_.PowerState -eq "PoweredOn" } | Measure-Object).count
             $PoweredOffVMsCount = ($vmList | Where-Object { $_.PowerState -eq "PoweredOff" } | Measure-Object).count
             $SuspendedVMsCount = ($vmList | Where-Object { $_.PowerState -eq "Suspended" } | Measure-Object).count

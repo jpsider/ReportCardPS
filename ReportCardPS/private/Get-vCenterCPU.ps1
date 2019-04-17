@@ -2,11 +2,11 @@ function Get-vCenterCPU
 {
     <#
     .DESCRIPTION
-        Builds HTML Reports using VMware's ClarityUI library.
-    .PARAMETER tbd01
-        working on the details
-    .PARAMETER tbd02
-        working on the details
+        Gathers vCenter overall CPU information.
+    .PARAMETER Include
+        Provide a String to use when including specific VMHosts based on Name
+    .PARAMETER Exclude
+        Provide a String to use when excluding specific VMHosts based on Name
     .EXAMPLE
         Get-vCenterCPU
     .NOTES
@@ -18,13 +18,27 @@ function Get-vCenterCPU
     )]
     [OutputType([String])]
     param(
-        [Parameter()][String]$tbd01,
-        [Parameter()][String]$tbd02
+        [Parameter()][String]$Include,
+        [Parameter()][String]$Exclude
     )
     if ($pscmdlet.ShouldProcess("Starting Get-vCenterCPU function."))
     {
         try
         {
+            # Get the VMHosts
+            if ($null -ne $Include)
+            {
+                $VMHosts = Get-VMHost | Where-Object { $_.Name -like "*$Include*" }
+            }
+            elseif ($null -ne $Exclude)
+            {
+                $VMHosts = Get-VMHost | Where-Object { $_.Name -notlike "*$Exclude*" }
+            }
+            else
+            {
+                $VMHosts = Get-VMHost
+            }
+            
             # Setup some empty Variables to store things
             $vCenterCpuTotalMhz = $null
             $vCenterCpuUsageMhz = $null
@@ -51,7 +65,7 @@ function Get-vCenterCPU
             $CPUCard = New-ClarityCard -Title CPU -Icon CPU -IconSize 24
 
             $CPUCardBody = New-ClarityCardBody -CardText "$vCenterCPUFreeGhz GHz free"
-            $CPUCardBody += New-ClarityProgressBar -value $vCenterCPUUsagePercent -max 100 -DisplayValue $vCenterCPUUsagePercent
+            $CPUCardBody += New-ClarityProgressBlock -value $vCenterCPUUsagePercent -max 100 -DisplayValue $vCenterCPUUsagePercent
             $CPUCardBody += New-ClarityCardBodyFooter -FooterText "$vCenterCpuTotalMhz MHz used | $vCenterCpuTotalGhz GHz total"
             $CPUCardBody += Close-ClarityCardBody
             $CPUCard += $CPUCardBody

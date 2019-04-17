@@ -2,11 +2,11 @@ function Get-vCenterMemory
 {
     <#
     .DESCRIPTION
-        Builds HTML Reports using VMware's ClarityUI library.
-    .PARAMETER tbd01
-        working on the details
-    .PARAMETER tbd02
-        working on the details
+        Gathers VMHost Memory Data.
+    .PARAMETER Include
+        Provide a String to use when including specific VMHosts
+    .PARAMETER Exclude
+        Provide a String to use when excluding specific VMHosts
     .EXAMPLE
         Get-vCenterMemory
     .NOTES
@@ -18,13 +18,26 @@ function Get-vCenterMemory
     )]
     [OutputType([String])]
     param(
-        [Parameter()][String]$tbd01,
-        [Parameter()][String]$tbd02
+        [Parameter()][String]$Include,
+        [Parameter()][String]$Exclude
     )
     if ($pscmdlet.ShouldProcess("Starting Get-vCenterMemory function."))
     {
         try
         {
+            # Get the VMHosts
+            if ($null -ne $Include)
+            {
+                $VMHosts = Get-VMHost | Where-Object { $_.Name -like "*$Include*" }
+            }
+            elseif ($null -ne $Exclude)
+            {
+                $VMHosts = Get-VMHost | Where-Object { $_.Name -notlike "*$Exclude*" }
+            }
+            else
+            {
+                $VMHosts = Get-VMHost
+            }            
             # Setup some empty Variables to store things
             $vCenterMemoryTotalGB = $null
             $vCenterMemoryUsageGB = $null
@@ -50,7 +63,7 @@ function Get-vCenterMemory
             $MemoryCard = New-ClarityCard -Title Memory -Icon Memory -IconSize 24
 
             $MemoryCardBody = New-ClarityCardBody -CardText "$vCenterMemoryUsageFree GB free"
-            $MemoryCardBody += New-ClarityProgressBar -value $vCenterMemoryUsagePercent -max 100 -DisplayValue $vCenterMemoryUsagePercent
+            $MemoryCardBody += New-ClarityProgressBlock -value $vCenterMemoryUsagePercent -max 100 -DisplayValue $vCenterMemoryUsagePercent
             $MemoryCardBody += New-ClarityCardBodyFooter -FooterText "$vCenterMemoryUsageGB GB used | $vCenterMemoryTotalGB GB total"
             $MemoryCardBody += Close-ClarityCardBody
             $MemoryCard += $MemoryCardBody
