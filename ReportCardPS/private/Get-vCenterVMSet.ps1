@@ -48,11 +48,11 @@ function Get-vCenterVMSet
             $vmObject | Add-Member -MemberType NoteProperty -Name "Powered On" -Value "$PoweredOnVMsCount"
             $vmObject | Add-Member -MemberType NoteProperty -Name "Powered Off" -Value "$PoweredOffVMsCount"
             $vmObject | Add-Member -MemberType NoteProperty -Name "Suspended" -Value "$SuspendedVMsCount"
-            $vmObject | ConvertTo-Html -Fragment
+            $CardText = $vmObject | ConvertTo-Html -Fragment
 
             # Build the HTML Card
-            $VMCard = New-ClarityCard -Title VM -Icon VM -IconSize
-            $VMCardBody = New-ClarityCardBody -CardText "$vmObject"
+            $VMCard = New-ClarityCard -Title VM -Icon VM -IconSize 24
+            $VMCardBody = New-ClarityCardBody -CardText "$CardText"
             $VMCardBody += Close-ClarityCardBody
             $VMCard += $VMCardBody
             $VMCard += Close-ClarityCard

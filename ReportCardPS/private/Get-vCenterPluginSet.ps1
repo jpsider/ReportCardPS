@@ -33,7 +33,7 @@ function Get-vCenterPluginSet
             $InstalledPluginsList = $InstalledPlugins | ConvertTo-Html -Fragment
 
             # Build the HTML Card
-            $PluginCard = New-ClarityCard -Title "vCenter Plugins" -Icon Plugin -IconSize
+            $PluginCard = New-ClarityCard -Title "vCenter Plugins" -Icon Plugin -IconSize 24
             $PluginCardBody = New-ClarityCardBody -CardText "$InstalledPluginsList"
             $PluginCardBody += Close-ClarityCardBody
             $PluginCard += $PluginCardBody

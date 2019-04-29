@@ -52,7 +52,7 @@ function Get-vCenterHostSet
             $vmHostObject | ConvertTo-Html -Fragment
 
             # Build the HTML Card
-            $vmHostCard = New-ClarityCard -Title VMHosts -Icon VMHosts -IconSize
+            $vmHostCard = New-ClarityCard -Title VMHosts -Icon VMHosts -IconSize 24
             $vmHostCardBody = New-ClarityCardBody -CardText "$vmHostObject"
             $vmHostCardBody += Close-ClarityCardBody
             $vmHostCard += $vmHostCardBody

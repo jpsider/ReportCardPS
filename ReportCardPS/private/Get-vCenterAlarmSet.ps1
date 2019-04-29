@@ -56,7 +56,7 @@ function Get-vCenterAlarmSet
             $vCenterTop5Alarms = $vCenterAlarmCollection | Sort-Object -Property thisItemWarningsCount -Descending | Select-Object -First 5 | ConvertTo-Html -Fragment
 
             # Build the HTML Card
-            $AlarmsCard = New-ClarityCard -Title Plugin -Icon Plugin -IconSize
+            $AlarmsCard = New-ClarityCard -Title Plugin -Icon Plugin -IconSize 24
             $AlarmsCardBody = New-ClarityCardBody -CardText "$vCenterTop5Alarms"
             $AlarmsCardBody += Close-ClarityCardBody
             $AlarmsCard += $AlarmsCardBody
