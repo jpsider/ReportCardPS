@@ -9,3 +9,4 @@ pages:
   - Quick Start: Quick-Start-Installation-and-Example.md
 - Public Functions:
   - New-ReportCard: New-ReportCard.md
+  - Get-ReportCardTemplateSet: Get-ReportCardTemplateSet.md

@@ -5,14 +5,14 @@ online version:
 schema: 2.0.0
 ---
 
-# New-ReportCard
+# Get-ReportCardTemplateSet
 
 ## SYNOPSIS
 
 ## SYNTAX
 
 ```
-New-ReportCard [[-Title] <String>] [[-JsonFilePath] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Get-ReportCardTemplateSet [[-Path] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -22,13 +22,13 @@ Builds HTML Reports using VMware's ClarityUI library.
 
 ### EXAMPLE 1
 ```
-New-ReportCard
+Get-ReportCardTemplateSet
 ```
 
 ## PARAMETERS
 
-### -Title
-Title for the document.
+### -Path
+Path to a directory with JSON templates.
 
 ```yaml
 Type: String
@@ -37,21 +37,6 @@ Aliases:
 
 Required: False
 Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -JsonFilePath
-Full Path to the JsonFile.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
