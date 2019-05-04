@@ -6,10 +6,10 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 
 
 function New-ClarityCard { }
-function New-ClarityCardBody { }
+function Add-ClarityCardBody { }
 function Close-ClarityCardBody { }
-function New-ClarityProgressBlock { }
-function New-ClarityCardBodyFooter { }
+function Add-ClarityProgressBlock { }
+function Add-CardText { }
 function Close-ClarityCard { }
 function Get-VMHost { }
 
@@ -38,13 +38,13 @@ Describe "Get-vCenterMemory function for $script:ModuleName" -Tags Build {
         Mock -CommandName 'New-ClarityCard' -MockWith {
             return "<Card>FakeHTMLCard"
         }
-        Mock -CommandName 'New-ClarityCardBody' -MockWith {
+        Mock -CommandName 'Add-ClarityCardBody' -MockWith {
             return "<cardbody>FakeHTMLBody"
         }
-        Mock -CommandName 'New-ClarityProgressBlock' -MockWith {
+        Mock -CommandName 'Add-ClarityProgressBlock' -MockWith {
             return "<div class='progress-block'><div class='progress success'><progress value='52' max='100' data-displayval='52'></progress></div></div>"
         }
-        Mock -CommandName 'New-ClarityCardBodyFooter' -MockWith {
+        Mock -CommandName 'Add-CardText' -MockWith {
             return "footerText"
         }
         Mock -CommandName 'Close-ClarityCardBody' -MockWith {
@@ -76,13 +76,13 @@ Describe "Get-vCenterMemory function for $script:ModuleName" -Tags Build {
         Mock -CommandName 'New-ClarityCard' -MockWith {
             return "<Card>FakeHTMLCard"
         }
-        Mock -CommandName 'New-ClarityCardBody' -MockWith {
+        Mock -CommandName 'Add-ClarityCardBody' -MockWith {
             return "<cardbody>FakeHTMLBody"
         }
-        Mock -CommandName 'New-ClarityProgressBlock' -MockWith {
+        Mock -CommandName 'Add-ClarityProgressBlock' -MockWith {
             return "<div class='progress-block'><div class='progress success'><progress value='52' max='100' data-displayval='52'></progress></div></div>"
         }
-        Mock -CommandName 'New-ClarityCardBodyFooter' -MockWith {
+        Mock -CommandName 'Add-CardText' -MockWith {
             return "footerText"
         }
         Mock -CommandName 'Close-ClarityCardBody' -MockWith {
@@ -114,13 +114,13 @@ Describe "Get-vCenterMemory function for $script:ModuleName" -Tags Build {
         Mock -CommandName 'New-ClarityCard' -MockWith {
             return "<Card>FakeHTMLCard"
         }
-        Mock -CommandName 'New-ClarityCardBody' -MockWith {
+        Mock -CommandName 'Add-ClarityCardBody' -MockWith {
             return "<cardbody>FakeHTMLBody"
         }
-        Mock -CommandName 'New-ClarityProgressBlock' -MockWith {
+        Mock -CommandName 'Add-ClarityProgressBlock' -MockWith {
             return "<div class='progress-block'><div class='progress success'><progress value='52' max='100' data-displayval='52'></progress></div></div>"
         }
-        Mock -CommandName 'New-ClarityCardBodyFooter' -MockWith {
+        Mock -CommandName 'Add-CardText' -MockWith {
             return "footerText"
         }
         Mock -CommandName 'Close-ClarityCardBody' -MockWith {
@@ -138,13 +138,13 @@ Describe "Get-vCenterMemory function for $script:ModuleName" -Tags Build {
         Mock -CommandName 'New-ClarityCard' -MockWith {
             return "<Card>FakeHTMLCard"
         }
-        Mock -CommandName 'New-ClarityCardBody' -MockWith {
+        Mock -CommandName 'Add-ClarityCardBody' -MockWith {
             return "<cardbody>FakeHTMLBody"
         }
-        Mock -CommandName 'New-ClarityProgressBlock' -MockWith {
+        Mock -CommandName 'Add-ClarityProgressBlock' -MockWith {
             return "<div class='progress-block'><div class='progress success'><progress value='52' max='100' data-displayval='52'></progress></div></div>"
         }
-        Mock -CommandName 'New-ClarityCardBodyFooter' -MockWith {
+        Mock -CommandName 'Add-CardText' -MockWith {
             return "footerText"
         }
         Mock -CommandName 'Close-ClarityCardBody' -MockWith {
@@ -176,13 +176,13 @@ Describe "Get-vCenterMemory function for $script:ModuleName" -Tags Build {
         Mock -CommandName 'New-ClarityCard' -MockWith {
             return "<Card>FakeHTMLCard"
         }
-        Mock -CommandName 'New-ClarityCardBody' -MockWith {
+        Mock -CommandName 'Add-ClarityCardBody' -MockWith {
             return "<cardbody>FakeHTMLBody"
         }
-        Mock -CommandName 'New-ClarityProgressBlock' -MockWith {
+        Mock -CommandName 'Add-ClarityProgressBlock' -MockWith {
             return "<div class='progress-block'><div class='progress success'><progress value='52' max='100' data-displayval='52'></progress></div></div>"
         }
-        Mock -CommandName 'New-ClarityCardBodyFooter' -MockWith {
+        Mock -CommandName 'Add-CardText' -MockWith {
             return "footerText"
         }
         Mock -CommandName 'Close-ClarityCardBody' -MockWith {

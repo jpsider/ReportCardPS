@@ -57,7 +57,7 @@ function Get-vCenterAlarmSet
 
             # Build the HTML Card
             $AlarmsCard = New-ClarityCard -Title Plugin -Icon Plugin -IconSize 24
-            $AlarmsCardBody = New-ClarityCardBody -CardText "$vCenterTop5Alarms"
+            $AlarmsCardBody = Add-ClarityCardBody -CardText "$vCenterTop5Alarms"
             $AlarmsCardBody += Close-ClarityCardBody
             $AlarmsCard += $AlarmsCardBody
             $AlarmsCard += Close-ClarityCard

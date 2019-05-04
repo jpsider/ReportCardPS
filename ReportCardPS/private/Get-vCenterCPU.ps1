@@ -65,9 +65,9 @@ function Get-vCenterCPU
             # Build the HTML Card
             $CPUCard = New-ClarityCard -Title CPU -Icon CPU -IconSize 24
 
-            $CPUCardBody = New-ClarityCardBody -CardText "$vCenterCPUFreeGhz GHz free"
-            $CPUCardBody += New-ClarityProgressBlock -value $vCenterCPUUsagePercent -max 100 -DisplayValue $vCenterCPUUsagePercent
-            $CPUCardBody += New-ClarityCardBodyFooter -FooterText "$vCenterCpuTotalMhz MHz used | $vCenterCpuTotalGhz GHz total"
+            $CPUCardBody = Add-ClarityCardBody -CardText "$vCenterCPUFreeGhz GHz free"
+            $CPUCardBody += Add-ClarityProgressBlock -value $vCenterCPUUsagePercent -max 100 -DisplayValue $vCenterCPUUsagePercent
+            $CPUCardBody += Add-CardText -CardText "$vCenterCpuTotalMhz MHz used | $vCenterCpuTotalGhz GHz total"
             $CPUCardBody += Close-ClarityCardBody
             $CPUCard += $CPUCardBody
             $CPUCard += Close-ClarityCard

@@ -5,7 +5,7 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 . "$here\$sut"
 
 function New-ClarityCard { }
-function New-ClarityCardBody { }
+function Add-ClarityCardBody { }
 function Close-ClarityCardBody { }
 function Close-ClarityCard { }
 function Get-View { }
@@ -40,7 +40,7 @@ Describe "Get-vCenterPluginSet function for $script:ModuleName" -Tags Build {
         Mock -CommandName 'New-ClarityCard' -MockWith {
             return "<Card>FakeHTMLCard"
         }
-        Mock -CommandName 'New-ClarityCardBody' -MockWith {
+        Mock -CommandName 'Add-ClarityCardBody' -MockWith {
             return "<cardbody>FakeHTMLBody"
         }
         Mock -CommandName 'Close-ClarityCardBody' -MockWith {
@@ -77,7 +77,7 @@ Describe "Get-vCenterPluginSet function for $script:ModuleName" -Tags Build {
         Mock -CommandName 'New-ClarityCard' -MockWith {
             return "<Card>FakeHTMLCard"
         }
-        Mock -CommandName 'New-ClarityCardBody' -MockWith {
+        Mock -CommandName 'Add-ClarityCardBody' -MockWith {
             return "<cardbody>FakeHTMLBody"
         }
         Mock -CommandName 'Close-ClarityCardBody' -MockWith {
@@ -95,7 +95,7 @@ Describe "Get-vCenterPluginSet function for $script:ModuleName" -Tags Build {
         Mock -CommandName 'New-ClarityCard' -MockWith {
             return "<Card>FakeHTMLCard"
         }
-        Mock -CommandName 'New-ClarityCardBody' -MockWith {
+        Mock -CommandName 'Add-ClarityCardBody' -MockWith {
             return "<cardbody>FakeHTMLBody"
         }
         Mock -CommandName 'Close-ClarityCardBody' -MockWith {

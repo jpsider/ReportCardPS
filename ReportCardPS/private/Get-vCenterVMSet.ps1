@@ -52,9 +52,10 @@ function Get-vCenterVMSet
 
             # Build the HTML Card
             $VMCard = New-ClarityCard -Title VM -Icon VM -IconSize 24
-            $VMCardBody = New-ClarityCardBody -CardText "$CardText"
+            $VMCardBody += Add-ClarityCardBody -CardText "$CardText"
             $VMCardBody += Close-ClarityCardBody
             $VMCard += $VMCardBody
+
             $VMCard += Close-ClarityCard
             $VMCard
         }

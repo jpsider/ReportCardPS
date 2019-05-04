@@ -3,10 +3,10 @@ function New-ReportCard
     <#
     .DESCRIPTION
         Builds HTML Reports using VMware's ClarityUI library.
-    .PARAMETER tbd01
-        working on the details
-    .PARAMETER tbd02
-        working on the details
+    .PARAMETER Title
+        Title for the document.
+    .PARAMETER JsonFilePath
+        Full Path to the JsonFile.
     .EXAMPLE
         New-ReportCard
     .NOTES
@@ -16,31 +16,37 @@ function New-ReportCard
         SupportsShouldProcess = $true,
         ConfirmImpact = "Low"
     )]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidUsingInvokeExpression", '')]
     [OutputType([String])]
     [OutputType([Boolean])]
     param(
-        [Parameter()][String]$tbd01,
-        [Parameter()][String]$tbd02
+        [Parameter()][String]$Title,
+        [Parameter()][String]$JsonFilePath
     )
     if ($pscmdlet.ShouldProcess("Starting New-ReportCard function."))
     {
         try
         {
-            #Add Function details
-            Write-Output "This function is currently just a shell."
-            Write-Output "To run the vCenter ReportCard script, Navigate to the ModulePath"
-            Write-Output "Source the .ps1 '. .\Invoke-vCenterHomeReport.ps1'"
-            Write-Output "Use the Comment based help if needed: 'get-help Invoke-vCenterHomeReport'"
-            Write-Output "Connect to your vCenter!"
-            Write-Output "Then run the function 'Invoke-vCenterHomeReport' add the paths if you want."
-            Write-Output "Then pop the page up and do whatever you'd like with it."
-            # The real tasks!
             # Validate the Template Json Path
-            # Get the Template Header
+            Test-Path -Path $JsonFilePath
+            # Get the New-ClarityDocument HTML
+            $ClarityDocument = New-ClarityDocument -Title "$Title"
             # Loop through the Json to create the HTML file.
-            # Add the footer
+            $JsonContent = Get-Content -Path $JsonFilePath | ConvertFrom-Json
+            $JsonContent = $JsonContent | Sort-Object -Property Order
+            foreach ($JsonObject in $JsonContent)
+            {
+                #$CardTitle = $JsonObject.CardTile
+                $CardFunction = $JsonObject.CardFunction
+                $CardArguments = $JsonObject.CardArguments
+                #$Order = $JsonObject.Order
+                $CardHtml = Invoke-Expression -Command "$CardFunction $CardArguments"
+                $ClarityDocument += $CardHtml
+            }
+            # Close the Document
+            $ClarityDocument += Close-ClarityDocument
             # Output the data (Allow passthru?)
-
+            $ClarityDocument
         }
         catch
         {

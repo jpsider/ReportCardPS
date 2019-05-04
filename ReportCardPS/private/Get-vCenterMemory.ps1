@@ -63,9 +63,9 @@ function Get-vCenterMemory
             # Build the HTML Card
             $MemoryCard = New-ClarityCard -Title Memory -Icon Memory -IconSize 24
 
-            $MemoryCardBody = New-ClarityCardBody -CardText "$vCenterMemoryUsageFree GB free"
-            $MemoryCardBody += New-ClarityProgressBlock -value $vCenterMemoryUsagePercent -max 100 -DisplayValue $vCenterMemoryUsagePercent
-            $MemoryCardBody += New-ClarityCardBodyFooter -FooterText "$vCenterMemoryUsageGB GB used | $vCenterMemoryTotalGB GB total"
+            $MemoryCardBody = Add-ClarityCardBody -CardText "$vCenterMemoryUsageFree GB free"
+            $MemoryCardBody += Add-ClarityProgressBlock -value $vCenterMemoryUsagePercent -max 100 -DisplayValue $vCenterMemoryUsagePercent
+            $MemoryCardBody += Add-CardText -CardText "$vCenterMemoryUsageGB GB used | $vCenterMemoryTotalGB GB total"
             $MemoryCardBody += Close-ClarityCardBody
             $MemoryCard += $MemoryCardBody
             $MemoryCard += Close-ClarityCard

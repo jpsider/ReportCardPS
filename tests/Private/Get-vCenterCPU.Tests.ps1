@@ -6,12 +6,12 @@ $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 
 
 function New-ClarityCard { }
-function New-ClarityCardBody { }
+function Add-ClarityCardBody { }
 function Close-ClarityCardBody { }
-function New-ClarityProgressBlock { }
-function New-ClarityCardBodyFooter { }
+function Add-ClarityProgressBlock { }
 function Close-ClarityCard { }
 function Get-VMHost { }
+function Add-CardText { }
 
 Describe "Get-vCenterCPU function for $script:ModuleName" -Tags Build {
     It "Should return False if -WhatIf is used." {
@@ -38,20 +38,20 @@ Describe "Get-vCenterCPU function for $script:ModuleName" -Tags Build {
         Mock -CommandName 'New-ClarityCard' -MockWith {
             return "<Card>FakeHTMLCard"
         }
-        Mock -CommandName 'New-ClarityCardBody' -MockWith {
+        Mock -CommandName 'Add-ClarityCardBody' -MockWith {
             return "<cardbody>FakeHTMLBody"
         }
-        Mock -CommandName 'New-ClarityProgressBlock' -MockWith {
+        Mock -CommandName 'Add-ClarityProgressBlock' -MockWith {
             return "<div class='progress-block'><div class='progress success'><progress value='52' max='100' data-displayval='52'></progress></div></div>"
-        }
-        Mock -CommandName 'New-ClarityCardBodyFooter' -MockWith {
-            return "footerText"
         }
         Mock -CommandName 'Close-ClarityCardBody' -MockWith {
             return "</cardbody>"
         }
         Mock -CommandName 'Close-ClarityCard' -MockWith {
             return "</card>"
+        }
+        Mock -CommandName 'Add-CardText' -MockWith {
+            return "text"
         }
         Get-vCenterCPU | Should not be $null
     }
@@ -76,20 +76,20 @@ Describe "Get-vCenterCPU function for $script:ModuleName" -Tags Build {
         Mock -CommandName 'New-ClarityCard' -MockWith {
             return "<Card>FakeHTMLCard"
         }
-        Mock -CommandName 'New-ClarityCardBody' -MockWith {
+        Mock -CommandName 'Add-ClarityCardBody' -MockWith {
             return "<cardbody>FakeHTMLBody"
         }
-        Mock -CommandName 'New-ClarityProgressBlock' -MockWith {
+        Mock -CommandName 'Add-ClarityProgressBlock' -MockWith {
             return "<div class='progress-block'><div class='progress success'><progress value='52' max='100' data-displayval='52'></progress></div></div>"
-        }
-        Mock -CommandName 'New-ClarityCardBodyFooter' -MockWith {
-            return "footerText"
         }
         Mock -CommandName 'Close-ClarityCardBody' -MockWith {
             return "</cardbody>"
         }
         Mock -CommandName 'Close-ClarityCard' -MockWith {
             return "</card>"
+        }
+        Mock -CommandName 'Add-CardText' -MockWith {
+            return "text"
         }
         Get-vCenterCPU -Include host01 | Should not be $null
     }
@@ -114,20 +114,20 @@ Describe "Get-vCenterCPU function for $script:ModuleName" -Tags Build {
         Mock -CommandName 'New-ClarityCard' -MockWith {
             return "<Card>FakeHTMLCard"
         }
-        Mock -CommandName 'New-ClarityCardBody' -MockWith {
+        Mock -CommandName 'Add-ClarityCardBody' -MockWith {
             return "<cardbody>FakeHTMLBody"
         }
-        Mock -CommandName 'New-ClarityProgressBlock' -MockWith {
+        Mock -CommandName 'Add-ClarityProgressBlock' -MockWith {
             return "<div class='progress-block'><div class='progress success'><progress value='52' max='100' data-displayval='52'></progress></div></div>"
-        }
-        Mock -CommandName 'New-ClarityCardBodyFooter' -MockWith {
-            return "footerText"
         }
         Mock -CommandName 'Close-ClarityCardBody' -MockWith {
             return "</cardbody>"
         }
         Mock -CommandName 'Close-ClarityCard' -MockWith {
             return "</card>"
+        }
+        Mock -CommandName 'Add-CardText' -MockWith {
+            return "text"
         }
         Get-vCenterCPU -Exclude host01 | Should not be $null
     }
@@ -138,20 +138,20 @@ Describe "Get-vCenterCPU function for $script:ModuleName" -Tags Build {
         Mock -CommandName 'New-ClarityCard' -MockWith {
             return "<Card>FakeHTMLCard"
         }
-        Mock -CommandName 'New-ClarityCardBody' -MockWith {
+        Mock -CommandName 'Add-ClarityCardBody' -MockWith {
             return "<cardbody>FakeHTMLBody"
         }
-        Mock -CommandName 'New-ClarityProgressBlock' -MockWith {
+        Mock -CommandName 'Add-ClarityProgressBlock' -MockWith {
             return "<div class='progress-block'><div class='progress success'><progress value='52' max='100' data-displayval='52'></progress></div></div>"
-        }
-        Mock -CommandName 'New-ClarityCardBodyFooter' -MockWith {
-            return "footerText"
         }
         Mock -CommandName 'Close-ClarityCardBody' -MockWith {
             return "</cardbody>"
         }
         Mock -CommandName 'Close-ClarityCard' -MockWith {
             return "</card>"
+        }
+        Mock -CommandName 'Add-CardText' -MockWith {
+            return "text"
         }
         { Get-vCenterCPU } | Should Throw
     }
@@ -176,20 +176,20 @@ Describe "Get-vCenterCPU function for $script:ModuleName" -Tags Build {
         Mock -CommandName 'New-ClarityCard' -MockWith {
             return "<Card>FakeHTMLCard"
         }
-        Mock -CommandName 'New-ClarityCardBody' -MockWith {
+        Mock -CommandName 'Add-ClarityCardBody' -MockWith {
             return "<cardbody>FakeHTMLBody"
         }
-        Mock -CommandName 'New-ClarityProgressBlock' -MockWith {
+        Mock -CommandName 'Add-ClarityProgressBlock' -MockWith {
             return "<div class='progress-block'><div class='progress success'><progress value='52' max='100' data-displayval='52'></progress></div></div>"
-        }
-        Mock -CommandName 'New-ClarityCardBodyFooter' -MockWith {
-            return "footerText"
         }
         Mock -CommandName 'Close-ClarityCardBody' -MockWith {
             return "</cardbody>"
         }
         Mock -CommandName 'Close-ClarityCard' -MockWith {
             return "</card>"
+        }
+        Mock -CommandName 'Add-CardText' -MockWith {
+            return "text"
         }
         { Get-vCenterCPU } | Should not throw
     }
