@@ -48,19 +48,19 @@ function Get-vCenterAlarmSet
                 {
                     # Add the item to the collection
                     $thisItem | Add-Member -MemberType NoteProperty -Name "ObjectName" -Value "$objectName"
-                    $thisItem | Add-Member -MemberType NoteProperty -Name "thisItemAlarmsCount" -Value "$thisItemAlarmsCount"
-                    $thisItem | Add-Member -MemberType NoteProperty -Name "thisItemWarningsCount" -Value "$thisItemWarningsCount"
+                    $thisItem | Add-Member -MemberType NoteProperty -Name "AlarmCount" -Value "$thisItemAlarmsCount"
+                    $thisItem | Add-Member -MemberType NoteProperty -Name "WarningsCount" -Value "$thisItemWarningsCount"
                     $vCenterAlarmCollection.Add($thisItem) | Out-Null
                 }
             }
-            $vCenterTop5Alarms = $vCenterAlarmCollection | Sort-Object -Property thisItemWarningsCount -Descending | Select-Object -First 5 | ConvertTo-Html -Fragment
+            $vCenterTop5Alarms = $vCenterAlarmCollection | Sort-Object -Property WarningsCount -Descending | Select-Object -First 5 | ConvertTo-Html -Fragment
 
             # Build the HTML Card
-            $AlarmsCard = New-ClarityCard -Title Plugin -Icon Plugin -IconSize 24
+            $AlarmsCard = New-ClarityCard -Title Alarms -Icon info-standard -IconSize 24
             $AlarmsCardBody = Add-ClarityCardBody -CardText "$vCenterTop5Alarms"
             $AlarmsCardBody += Close-ClarityCardBody
             $AlarmsCard += $AlarmsCardBody
-            $AlarmsCard += Close-ClarityCard
+            $AlarmsCard += Close-ClarityCard -Title "Close Alarm Card"
             $AlarmsCard
         }
         catch

@@ -46,17 +46,26 @@ function Get-vCenterVMSet
             # Make a Custom object with the information
             $vmObject = New-Object System.Object
             $vmObject | Add-Member -MemberType NoteProperty -Name "Powered On" -Value "$PoweredOnVMsCount"
-            $vmObject | Add-Member -MemberType NoteProperty -Name "Powered Off" -Value "$PoweredOffVMsCount"
+            $vmObject | Add-Member -MemberType NoteProperty -Name " | Powered Off | " -Value "$PoweredOffVMsCount"
             $vmObject | Add-Member -MemberType NoteProperty -Name "Suspended" -Value "$SuspendedVMsCount"
             $CardText = $vmObject | ConvertTo-Html -Fragment
 
+            # Manipulate the HTML to get desired card layout.
+            $Part1 = $CardText[0]
+            $Part2 = $CardText[3] -replace ("<td>", "<th><h2>")
+            $Part2 = $Part2 -replace ("</td>", "</h2></th>")
+            $Part3 = $CardText[2] -replace ("th", "td")
+            $Part4 = $CardText[4]
+
+            $FinalCardTextHtml = $Part1 + $Part2 + $Part3 + $Part4
+
             # Build the HTML Card
-            $VMCard = New-ClarityCard -Title VM -Icon VM -IconSize 24
-            $VMCardBody += Add-ClarityCardBody -CardText "$CardText"
+            $VMCard = New-ClarityCard -Title VM -Icon vm -IconSize 24
+            $VMCardBody += Add-ClarityCardBody -CardText "$FinalCardTextHtml"
             $VMCardBody += Close-ClarityCardBody
             $VMCard += $VMCardBody
 
-            $VMCard += Close-ClarityCard
+            $VMCard += Close-ClarityCard -Title "Close VM card"
             $VMCard
         }
         catch

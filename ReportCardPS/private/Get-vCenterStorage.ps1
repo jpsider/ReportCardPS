@@ -27,7 +27,7 @@ function Get-vCenterStorage
         try
         {
             # Get the DataStores
-            Write-Output "Gathering Storage Data."
+            # Write-Output "Gathering Storage Data."
             if ($Include)
             {
                 $DataStores = Get-DataStore | Where-Object { $_.Name -like "*$Include*" }
@@ -60,14 +60,14 @@ function Get-vCenterStorage
             $vCenterUsedSpaceGBPercent = ([math]::Round(($vCenterUsedSpaceGB / $vCenterCapacityGB), 2)) * 100
 
             # Build the HTML Card
-            $StorageCard = New-ClarityCard -Title Storage -Icon Storage -IconSize 24
+            $StorageCard = New-ClarityCard -Title Storage -Icon storage -IconSize 24
 
             $StorageCardBody = Add-ClarityCardBody -CardText "$vCenterFreeSpaceGB GB free"
-            $StorageCardBody += Add-ClarityProgressBlock -value $vCenterUsedSpaceGBPercent -max 100 -DisplayValue $vCenterUsedSpaceGBPercent
+            $StorageCardBody += Add-ProgressBlock -value $vCenterUsedSpaceGBPercent -max 100
             $StorageCardBody += Add-CardText -CardText "$vCenterUsedSpaceGB GB used | $vCenterCapacityGB GB total"
             $StorageCardBody += Close-ClarityCardBody
             $StorageCard += $StorageCardBody
-            $StorageCard += Close-ClarityCard -Title Storage
+            $StorageCard += Close-ClarityCard -Title "Close Storage Card"
             $StorageCard
         }
         catch

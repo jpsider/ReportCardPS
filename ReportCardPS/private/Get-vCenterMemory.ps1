@@ -43,11 +43,11 @@ function Get-vCenterMemory
             $vCenterMemoryTotalGB = $null
             $vCenterMemoryUsageGB = $null
             # Loop Through the hosts to get the Memory and CPU stats
-            Write-Output "Looping through the VMHosts to gather Memory and CPU data."
+            #Write-Output "Looping through the VMHosts to gather Memory and CPU data."
             foreach ($VMHost in $VMHosts)
             {
-                $VMHostName = $VMHost.Name
-                Write-Output "Collecting Stats for $VMHostName"
+                #$VMHostName = $VMHost.Name
+                #Write-Output "Collecting Stats for $VMHostName"
                 $thisVMhostMemoryTotalGB = $VMHost.MemoryTotalGB
                 $thisVMhostMemoryUsageGB = $VMHost.MemoryUsageGB
                 # Add the Items to the total
@@ -61,14 +61,14 @@ function Get-vCenterMemory
             $vCenterMemoryUsageFree = $vCenterMemoryTotalGB - $vCenterMemoryUsageGB
 
             # Build the HTML Card
-            $MemoryCard = New-ClarityCard -Title Memory -Icon Memory -IconSize 24
+            $MemoryCard = New-ClarityCard -Title Memory -Icon memory -IconSize 24
 
             $MemoryCardBody = Add-ClarityCardBody -CardText "$vCenterMemoryUsageFree GB free"
-            $MemoryCardBody += Add-ClarityProgressBlock -value $vCenterMemoryUsagePercent -max 100 -DisplayValue $vCenterMemoryUsagePercent
+            $MemoryCardBody += Add-ProgressBlock -value $vCenterMemoryUsagePercent -max 100
             $MemoryCardBody += Add-CardText -CardText "$vCenterMemoryUsageGB GB used | $vCenterMemoryTotalGB GB total"
             $MemoryCardBody += Close-ClarityCardBody
             $MemoryCard += $MemoryCardBody
-            $MemoryCard += Close-ClarityCard
+            $MemoryCard += Close-ClarityCard -Title "Close Memory Card"
             $MemoryCard
 
         }

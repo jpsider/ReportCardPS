@@ -44,11 +44,10 @@ function Get-vCenterCPU
             $vCenterCpuTotalMhz = $null
             $vCenterCpuUsageMhz = $null
             # Loop Through the hosts to get the and CPU stats
-            Write-Output "Looping through the VMHosts to gather and CPU data."
             foreach ($VMHost in $VMHosts)
             {
-                $VMHostName = $VMHost.Name
-                Write-Output "Collecting Stats for $VMHostName"
+                #$VMHostName = $VMHost.Name
+                #Write-Output "Collecting Stats for $VMHostName"
                 $thisVMhostCpuTotalMhz = $VMHost.CpuTotalMhz
                 $thisVMhostCpuUsageMhz = $VMHost.CpuUsageMhz
                 # Add the Items to the total
@@ -63,14 +62,14 @@ function Get-vCenterCPU
             $vCenterCpuTotalGhz = $vCenterCpuTotalMhz / 1000
 
             # Build the HTML Card
-            $CPUCard = New-ClarityCard -Title CPU -Icon CPU -IconSize 24
+            $CPUCard = New-ClarityCard -Title CPU -Icon cpu -IconSize 24
 
             $CPUCardBody = Add-ClarityCardBody -CardText "$vCenterCPUFreeGhz GHz free"
-            $CPUCardBody += Add-ClarityProgressBlock -value $vCenterCPUUsagePercent -max 100 -DisplayValue $vCenterCPUUsagePercent
+            $CPUCardBody += Add-ProgressBlock -value $vCenterCPUUsagePercent -max 100
             $CPUCardBody += Add-CardText -CardText "$vCenterCpuTotalMhz MHz used | $vCenterCpuTotalGhz GHz total"
             $CPUCardBody += Close-ClarityCardBody
             $CPUCard += $CPUCardBody
-            $CPUCard += Close-ClarityCard
+            $CPUCard += Close-ClarityCard -Title "CPUCard"
             $CPUCard
         }
         catch

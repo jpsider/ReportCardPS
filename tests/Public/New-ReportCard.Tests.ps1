@@ -7,6 +7,7 @@ function New-ClarityDocument { }
 function Invoke-Expression { }
 function Get-Content { }
 function Close-ClarityDocument { }
+function Test-Path { }
 $RawReturn = @(
     @{
         "CardTile"      = "Memory"
@@ -21,7 +22,28 @@ Describe "New-ReportCard function for $script:ModuleName" -Tags Build {
     It "Should return False if -WhatIf is used." {
         New-ReportCard -Title MyNewDoc -JsonFilePath "c:\test\thispath.json" -WhatIf | Should be $false
     }
+    It "Should throw if the JsonFilePath does not exist." {
+        Mock -CommandName "Test-Path" -MockWith {
+            return $false
+        }
+        Mock -CommandName "New-ClarityDocument" -MockWith {
+            return "<New HTML>"
+        }
+        Mock -CommandName "Invoke-Expression" -MockWith {
+            return "<The body html>"
+        }
+        Mock -CommandName "Get-Content" -MockWith {
+            return $ReturnJson
+        }
+        Mock -CommandName "Close-ClarityDocument" -MockWith {
+            return "<htmlStuff>"
+        }
+        { New-ReportCard -Title MyNewDoc -JsonFilePath "c:\test\thispath.json" } | Should throw
+    }
     It "Should Return true." {
+        Mock -CommandName "Test-Path" -MockWith {
+            return $true
+        }
         Mock -CommandName "New-ClarityDocument" -MockWith {
             return "<New HTML>"
         }
@@ -37,6 +59,9 @@ Describe "New-ReportCard function for $script:ModuleName" -Tags Build {
         New-ReportCard -Title MyNewDoc -JsonFilePath "c:\test\thispath.json" | Should not be $null
     }
     It "Should Return true." {
+        Mock -CommandName "Test-Path" -MockWith {
+            return $true
+        }
         Mock -CommandName "New-ClarityDocument" -MockWith {
             return "<New HTML>"
         }
@@ -52,6 +77,9 @@ Describe "New-ReportCard function for $script:ModuleName" -Tags Build {
         { New-ReportCard -Title MyNewDoc -JsonFilePath "c:\test\thispath.json" } | Should not Throw
     }
     It "Should Return Throw, if Invoke-Expression Fails." {
+        Mock -CommandName "Test-Path" -MockWith {
+            return $true
+        }
         Mock -CommandName "New-ClarityDocument" -MockWith {
             return "<New HTML>"
         }
@@ -67,6 +95,9 @@ Describe "New-ReportCard function for $script:ModuleName" -Tags Build {
         { New-ReportCard -Title MyNewDoc -JsonFilePath "c:\test\thispath.json" } | Should Throw
     }
     It "Should Return Throw, if New-ClarityDocument Fails." {
+        Mock -CommandName "Test-Path" -MockWith {
+            return $true
+        }
         Mock -CommandName "New-ClarityDocument" -MockWith {
             Throw "New ClarityDocument failed."
         }
@@ -82,6 +113,9 @@ Describe "New-ReportCard function for $script:ModuleName" -Tags Build {
         { New-ReportCard -Title MyNewDoc -JsonFilePath "c:\test\thispath.json" } | Should Throw
     }
     It "Should Return Throw, if Close-ClarityDocument Fails." {
+        Mock -CommandName "Test-Path" -MockWith {
+            return $true
+        }
         Mock -CommandName "New-ClarityDocument" -MockWith {
             return "<New HTML>"
         }
@@ -97,6 +131,9 @@ Describe "New-ReportCard function for $script:ModuleName" -Tags Build {
         { New-ReportCard -Title MyNewDoc -JsonFilePath "c:\test\thispath.json" } | Should Throw
     }
     It "Should Return Throw, if New-ClarityDocument Fails." {
+        Mock -CommandName "Test-Path" -MockWith {
+            return $true
+        }
         Mock -CommandName "New-ClarityDocument" -MockWith {
             return "<New HTML>"
         }

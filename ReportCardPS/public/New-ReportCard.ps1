@@ -28,25 +28,31 @@ function New-ReportCard
         try
         {
             # Validate the Template Json Path
-            Test-Path -Path $JsonFilePath
-            # Get the New-ClarityDocument HTML
-            $ClarityDocument = New-ClarityDocument -Title "$Title"
-            # Loop through the Json to create the HTML file.
-            $JsonContent = Get-Content -Path $JsonFilePath | ConvertFrom-Json
-            $JsonContent = $JsonContent | Sort-Object -Property Order
-            foreach ($JsonObject in $JsonContent)
+            if (Test-Path -Path $JsonFilePath)
             {
-                #$CardTitle = $JsonObject.CardTile
-                $CardFunction = $JsonObject.CardFunction
-                $CardArguments = $JsonObject.CardArguments
-                #$Order = $JsonObject.Order
-                $CardHtml = Invoke-Expression -Command "$CardFunction $CardArguments"
-                $ClarityDocument += $CardHtml
+                # Get the New-ClarityDocument HTML
+                $ClarityDocument = New-ClarityDocument -Title "$Title"
+                # Loop through the Json to create the HTML file.
+                $JsonContent = Get-Content -Path $JsonFilePath | ConvertFrom-Json
+                $JsonContent = $JsonContent | Sort-Object -Property Order
+                foreach ($JsonObject in $JsonContent)
+                {
+                    #$CardTitle = $JsonObject.CardTile
+                    $CardFunction = $JsonObject.CardFunction
+                    $CardArguments = $JsonObject.CardArguments
+                    #$Order = $JsonObject.Order
+                    $CardHtml = Invoke-Expression -Command "$CardFunction $CardArguments"
+                    $ClarityDocument += $CardHtml
+                }
+                # Close the Document
+                $ClarityDocument += Close-ClarityDocument
+                # Output the data (Allow passthru?)
+                $ClarityDocument
             }
-            # Close the Document
-            $ClarityDocument += Close-ClarityDocument
-            # Output the data (Allow passthru?)
-            $ClarityDocument
+            else
+            {
+                Throw "New-ReportCard: Json File not found. $JsonFilePath"
+            }
         }
         catch
         {

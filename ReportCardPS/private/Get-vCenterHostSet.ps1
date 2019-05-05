@@ -47,16 +47,25 @@ function Get-vCenterHostSet
             # Make a Custom object with the information
             $vmHostObject = New-Object System.Object
             $vmHostObject | Add-Member -MemberType NoteProperty -Name "Connected" -Value "$ConnectedVMHosts"
-            $vmHostObject | Add-Member -MemberType NoteProperty -Name "Disconnected" -Value "$DisConnectedVMHosts"
+            $vmHostObject | Add-Member -MemberType NoteProperty -Name " | Disconnected | " -Value "$DisConnectedVMHosts"
             $vmHostObject | Add-Member -MemberType NoteProperty -Name "Maintenance" -Value "$MaintenanceVMHosts"
-            $vmHostObject | ConvertTo-Html -Fragment
+            $vmHostHtml = $vmHostObject | ConvertTo-Html -Fragment
+
+            # Manipulate the HTML to get the card we want.
+            $Part1 = $vmHostHtml[0]
+            $Part2 = $vmHostHtml[3] -replace ("<td>", "<th><h2>")
+            $Part2 = $Part2 -replace ("</td>", "</h2></th>")
+            $Part3 = $vmHostHtml[2] -replace ("th", "td")
+            $Part4 = $vmHostHtml[4]
+
+            $FinalvmHostHtml = $Part1 + $Part2 + $Part3 + $Part4
 
             # Build the HTML Card
-            $vmHostCard = New-ClarityCard -Title VMHosts -Icon VMHosts -IconSize 24
-            $vmHostCardBody = Add-ClarityCardBody -CardText "$vmHostObject"
+            $vmHostCard = New-ClarityCard -Title VMHosts -Icon host -IconSize 24
+            $vmHostCardBody += Add-ClarityCardBody -CardText "$FinalvmHostHtml"
             $vmHostCardBody += Close-ClarityCardBody
             $vmHostCard += $vmHostCardBody
-            $vmHostCard += Close-ClarityCard
+            $vmHostCard += Close-ClarityCard -Title "Close vmHost Card"
             $vmHostCard
         }
         catch
