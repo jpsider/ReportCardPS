@@ -20,6 +20,8 @@ Then pop the page up and do whatever you'd like with it.
 [![Coverage Status](https://coveralls.io/repos/github/jpsider/ReportCardPS/badge.svg?branch=master)](https://coveralls.io/github/jpsider/ReportCardPS?branch=master)
 [![Documentation Status](https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat)](http://reportcardps.readthedocs.io/en/latest/?badge=latest)
 
+![Alt text](https://github.com/jpsider/ReportCardPS/blob/master/Z_images/ReportCardPS.png "ReportCardPS Icon") 
+
 ## Docs  
 
 [Help](http://reportcardps.readthedocs.io/en/latest/?badge=latest)
