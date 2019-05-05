@@ -37,10 +37,9 @@ function New-ReportCard
                 $JsonContent = $JsonContent | Sort-Object -Property Order
                 foreach ($JsonObject in $JsonContent)
                 {
-                    #$CardTitle = $JsonObject.CardTile
+                    # Execute each specified function
                     $CardFunction = $JsonObject.CardFunction
                     $CardArguments = $JsonObject.CardArguments
-                    #$Order = $JsonObject.Order
                     $CardHtml = Invoke-Expression -Command "$CardFunction $CardArguments"
                     $ClarityDocument += $CardHtml
                 }
