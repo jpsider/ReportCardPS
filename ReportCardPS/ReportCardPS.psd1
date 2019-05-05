@@ -52,7 +52,7 @@
 
     # Modules that must be imported into the global environment prior to importing this module
     RequiredModules   = @(
-        @{"ModuleName" = "ClarityPS"; "ModuleVersion" = "0.1.0" }
+        @{"ModuleName" = "ClarityPS"; "ModuleVersion" = "0.2.0" }
     )
 
     # Assemblies that must be loaded prior to importing this module
