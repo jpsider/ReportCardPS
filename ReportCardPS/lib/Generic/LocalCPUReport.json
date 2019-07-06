@@ -1,0 +1,26 @@
+[
+  {
+    "CardTile": "CPU",
+    "CardFunction": "Get-LocalProcUsage",
+    "CardArguments": "-Count 5",
+    "Order": "1"
+  },
+  {
+    "CardTile": "CPU",
+    "CardFunction": "Get-LocalProcUsage",
+    "CardArguments": "-Count 10",
+    "Order": "2"
+  },
+  {
+    "CardTile": "Handles",
+    "CardFunction": "Get-LocalHandleCount",
+    "CardArguments": "-Count 5",
+    "Order": "3"
+  },
+  {
+    "CardTile": "Handles",
+    "CardFunction": "Get-LocalHandleCount",
+    "CardArguments": "-Count 10",
+    "Order": "4"
+  }
+]
