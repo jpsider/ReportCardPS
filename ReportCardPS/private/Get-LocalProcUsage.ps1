@@ -23,7 +23,7 @@ function Get-LocalProcUsage
     {
         try
         {
-            # Get Alarm Information
+            # Get CPU Information
             $ProcessData = Get-Process | Sort-Object -Property CPU -Descending | Select-Object ProcessName, CPU, Id | Select-Object -First $Count
             $TopProcessesHTML = $ProcessData | ConvertTo-Html -Fragment
 
